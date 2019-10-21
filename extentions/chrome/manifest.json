@@ -1,0 +1,22 @@
+{
+  "name": "Getting Started Example",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://animego.org/anime/*"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "content_script.js"
+      ]
+    }
+  ]
+}
