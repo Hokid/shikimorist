@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {IRate, RateStatus} from '../../../../../core/api/usersRate';
+import {Rate} from './elements/Rate';
 
 const listOptions = Object.values(RateStatus);
 const scoreOptions = [0,1,2,3,4,5,6,7,8,9,10];
@@ -46,17 +47,16 @@ export function RateControl(props: Props) {
             </p>
             <p>
                 Оценка
-                <div>
-                    <select
+                <div
+                    style={{
+                        padding: '24px 12px',
+                        textAlign: 'center'
+                    }}
+                >
+                    <Rate
                         value={props.value.score}
-                        onChange={(event: any) => props.onChangeScore(event.target.value)}
-                    >
-                        {
-                            scoreOptions.map(_ => (
-                                <option value={_}>{_}</option>
-                            ))
-                        }
-                    </select>
+                        onChange={props.onChangeScore}
+                    />
                 </div>
             </p>
             <p>

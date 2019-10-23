@@ -19,6 +19,12 @@ import {User} from '../core/user/User';
 import {AnimeRates} from '../core/anime-rate/AnimeRates';
 import {Animes} from '../core/animes/Animes';
 import {ProfileApi} from '../core/api/profile';
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {faStar, faStarHalf} from '@fortawesome/free-solid-svg-icons';
+
+library.add(
+    faStar, faStarHalf
+);
 
 const container = new Container({
     defaultScope: "Singleton",
