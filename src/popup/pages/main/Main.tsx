@@ -11,8 +11,8 @@ import {IRate, RateStatus, UsersRateApi} from '../../../core/api/usersRate';
 import {AnimeRate} from '../../../core/anime-rate/AnimeRate';
 import {Animes} from '../../../core/animes/Animes';
 import {AnimeRates} from '../../../core/anime-rate/AnimeRates';
-import {AddToList} from './elements/add-to-list/AddToList';
-import {RateControl} from './elements/rate-control/RateControl';
+import {AddToList} from './screens/add-to-list/AddToList';
+import {RateControl} from './screens/rate-control/RateControl';
 
 
 type Props = {
@@ -21,6 +21,7 @@ type Props = {
 type State = {
     anime: AsyncState<IAnime | null, string> | null;
     rate: AsyncState<AnimeRate | null, string> | null;
+    updating: boolean;
 };
 
 export class MainPageBase extends Component<Props, State> {
@@ -33,6 +34,7 @@ export class MainPageBase extends Component<Props, State> {
     state: State = {
         anime: null,
         rate: null,
+        updating: false
     };
 
     componentDidMount() {
@@ -62,7 +64,6 @@ export class MainPageBase extends Component<Props, State> {
 
         return (
             <>
-                <button onClick={this.props.authContext.signOut}>Выйти</button>
                 {
                     (!anime || (anime.isFulfilled && !anime.value)) && (
                         'Ничего нет'
@@ -93,15 +94,20 @@ export class MainPageBase extends Component<Props, State> {
 
     renderRateControl() {
         if (this.hasAnime() && this.hasRate()) {
-            const rate = (this.state.rate as Fulfilled<AnimeRate>).value as AnimeRate;
+            const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
+            const anime = (this.state.anime as Fulfilled<IAnime>).value;
+
             return (
                 <RateControl
                     value={rate}
+                    maxEpisodes={anime.episodes}
+                    updating={this.state.updating}
                     onChangeStatus={this.onChangeStatus}
                     onIncrementEp={this.onIncrementEp}
                     onDecrementEp={this.onDecrementEp}
                     onChangeScore={this.onChangeScore}
                     onChangeRewatches={this.onChangeRewatches}
+                    onDelete={this.onDelete}
                 />
             );
         }
@@ -122,51 +128,116 @@ export class MainPageBase extends Component<Props, State> {
     onChangeStatus = async (status: RateStatus) => {
         const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
 
-        await rate.setStatus(status);
-
         this.setState({
-            rate: AsyncMirror.resolve(rate.clone())
+            updating: true
         });
+
+        try {
+            await rate.setStatus(status);
+            this.setState({
+                updating: false,
+                rate: AsyncMirror.resolve(rate.clone())
+            });
+        } catch(error) {
+            console.error(error);
+            this.setState({
+                updating: false
+            });
+        }
     };
 
     onChangeScore = async (score: number) => {
         const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
 
-        await rate.setScore(score);
-
         this.setState({
-            rate: AsyncMirror.resolve(rate.clone())
+            updating: true
         });
+
+        try {
+            await rate.setScore(score);
+            this.setState({
+                updating: false,
+                rate: AsyncMirror.resolve(rate.clone())
+            });
+        } catch (error) {
+            console.error(error);
+            this.setState({
+                updating: false
+            });
+        }
     };
 
     onChangeRewatches = async (rewatches: number) => {
         const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
 
-        await rate.setRewatches(rewatches);
-
         this.setState({
-            rate: AsyncMirror.resolve(rate.clone())
+            updating: true
         });
+
+        try {
+            await rate.setRewatches(rewatches);
+            this.setState({
+                updating: false,
+                rate: AsyncMirror.resolve(rate.clone())
+            });
+        } catch (error) {
+            console.error(error);
+            this.setState({
+                updating: false
+            });
+        }
     };
 
     onIncrementEp = async () => {
         const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
 
-        await rate.increaseEpisodes();
-
         this.setState({
-            rate: AsyncMirror.resolve(rate.clone())
+            updating: true
         });
+
+        try {
+            await rate.increaseEpisodes();
+            this.setState({
+                updating: false,
+                rate: AsyncMirror.resolve(rate.clone())
+            });
+        } catch (error) {
+            console.error(error);
+            this.setState({
+                updating: false
+            });
+        }
     };
 
     onDecrementEp = async () => {
         const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
 
-        await rate.decreaseEpisodes();
-
         this.setState({
-            rate: AsyncMirror.resolve(rate.clone())
+            updating: true
         });
+
+        try {
+            await rate.decreaseEpisodes();
+            this.setState({
+                updating: false,
+                rate: AsyncMirror.resolve(rate.clone())
+            });
+        } catch (error) {
+            console.error(error);
+            this.setState({
+                updating: false
+            });
+        }
+    };
+
+    onDelete = async () => {
+        if (this.hasRate()) {
+            const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
+            await this.animeRates.delete(rate.id);
+            this.setState({
+                rate: null
+            });
+        }
     };
 
     onMessage = (message: Message) => {

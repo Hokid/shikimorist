@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ce1e4a8-712a-4dc6-8ad8-20514eda8f98" name="Default Changelist" comment="feat: add some code">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="7ce1e4a8-712a-4dc6-8ad8-20514eda8f98" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/popup/pages/main/screens/add-to-list/AddToList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/anime-rate/AnimeRate.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/anime-rate/AnimeRate.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/anime-rate/AnimeRates.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/anime-rate/AnimeRates.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/api/animes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/api/animes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/api/usersRate/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/api/usersRate/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/popup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/RateControl.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/RateControl.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/Main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/elements/add-to-list/AddToList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/RateControl.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/screens/rate-control/RateControl.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/elements/Rate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/screens/rate-control/elements/Rate.tsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +29,9 @@
         <option value="ReactComponent.tsx" />
         <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="ReactFC" />
         <option value="ReactFC.tsx" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -38,7 +47,8 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/elements" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/popup/pages/main/elements/side-button" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
@@ -46,16 +56,18 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/elements/back-side-button" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/screens" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/layout/with-back" />
       <recent name="$PROJECT_DIR$/src/popup/pages/main" />
       <recent name="$PROJECT_DIR$/src/popup/api" />
-      <recent name="$PROJECT_DIR$/src/core/api/authorization" />
-      <recent name="$PROJECT_DIR$/src/core/api" />
-      <recent name="$PROJECT_DIR$/src/ui" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/elements/side-button" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/elements" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/layout/with-header" />
       <recent name="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/elements" />
       <recent name="$PROJECT_DIR$/src/core/api" />
-      <recent name="$PROJECT_DIR$/public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -85,7 +97,7 @@
       <workItem from="1571700624246" duration="10289000" />
       <workItem from="1571785150608" duration="9276000" />
       <workItem from="1571800586032" duration="6000" />
-      <workItem from="1571810247314" duration="5718000" />
+      <workItem from="1571810247314" duration="13574000" />
     </task>
     <task id="LOCAL-00001" summary="chore: some useless code">
       <created>1571673771888</created>
@@ -115,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571794353671</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: add rate visual">
+      <created>1571815996099</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1571815996099</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +159,7 @@
     <MESSAGE value="chore: some useless code" />
     <MESSAGE value="chore: eject" />
     <MESSAGE value="feat: add some code" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add some code" />
+    <MESSAGE value="feat: add rate visual" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add rate visual" />
   </component>
 </project>

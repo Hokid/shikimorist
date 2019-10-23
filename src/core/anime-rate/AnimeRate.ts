@@ -6,6 +6,10 @@ export class AnimeRate {
         private api: UsersRateApi
     ) {}
 
+    get id(): number {
+        return this.data.id;
+    }
+
     get episodes(): number {
         return this.data.episodes;
     }

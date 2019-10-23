@@ -79,6 +79,10 @@ export class UsersRateApi {
 
         return result.data;
     }
+
+    async delete(id: number): Promise<void> {
+        const result = await this.api.delete('/api/v2/user_rates/' + id);
+    }
 }
 
 decorate(inject(TYPES.ApiClientFactory) as ParameterDecorator, UsersRateApi, 0);

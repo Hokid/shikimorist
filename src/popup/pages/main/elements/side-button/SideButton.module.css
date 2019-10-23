@@ -1,0 +1,23 @@
+.button {
+  width: 20px;
+  outline: 0;
+  padding: 0;
+  border: 0;
+  height: 100%;
+  position: relative;
+  background: #1d1818;
+  cursor: pointer;
+  color: #1d78b7;
+}
+
+.button > svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button:hover {
+  color: #209ce9;
+  background: #504545;
+}

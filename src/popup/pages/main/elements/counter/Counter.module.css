@@ -1,0 +1,27 @@
+.button {
+  outline: none;
+  border: 0;
+  background: #1d78b7;
+  color: #ffffff;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button:disabled {
+  background: #ccc6c6;
+}
+
+.number {
+  display: inline-block;
+  vertical-align: middle;
+  width: 110px;
+  font-weight: bold;
+}
+
+.number > span {
+  font-weight: normal;
+}

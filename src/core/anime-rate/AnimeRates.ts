@@ -45,6 +45,10 @@ export class AnimeRates {
 
         return new AnimeRate(rate, this.api);
     }
+
+    async delete(id: number): Promise<void> {
+        await this.api.delete(id);
+    }
 }
 
 decorate(inject(TYPES.UsersRateApi) as ParameterDecorator, AnimeRates, 0);

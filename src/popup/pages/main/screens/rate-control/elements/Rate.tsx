@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 const labels = {
-    0: "",
+    0: "Нет оценки",
     1: "Хуже некуда",
     2: "Ужасно",
     3: "Очень плохо",
@@ -96,31 +96,27 @@ export class Rate extends Component<Props, State> {
                         {this.renderHoverTriggers()}
                     </div>
                 </div>
-                {
-                    labelValue !== 0 && (
-                        <span
-                            style={{
-                                textAlign: 'center',
-                                display: 'inline-block',
-                                verticalAlign: 'top',
-                                lineHeight: 'normal',
-                                width: 80
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontSize: 30
-                                }}
-                            >{labelValue}</span>
-                            <br/>
-                            <span
-                                style={{
-                                    fontSize: 10
-                                }}
-                            >{labelText}</span>
-                        </span>
-                    )
-                }
+                <span
+                    style={{
+                        textAlign: 'center',
+                        display: 'inline-block',
+                        verticalAlign: 'top',
+                        lineHeight: 'normal',
+                        width: 80
+                    }}
+                >
+                    <span
+                        style={{
+                            fontSize: 30
+                        }}
+                    >{labelValue}</span>
+                    <br/>
+                    <span
+                        style={{
+                            fontSize: 10
+                        }}
+                    >{labelText}</span>
+                </span>
             </div>
         );
     }

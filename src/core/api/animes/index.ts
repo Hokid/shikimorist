@@ -7,6 +7,7 @@ export interface IAnime {
     id: number;
     name: string;
     russia: string | null;
+    episodes: number;
     image: {
         original: string;
         preview: string;

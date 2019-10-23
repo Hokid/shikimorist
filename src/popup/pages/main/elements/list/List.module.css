@@ -1,0 +1,36 @@
+.list {
+  list-style: none;
+  padding: 0;
+  height: 100%;
+  background: #daf1ff;
+  margin: 0;
+}
+
+.option > button {
+  background: #daf1ff;
+  color: #176093;
+  border: 1px solid #bce6ff;
+  border-left-width: 5px;
+  font-size: 13px;
+  font-weight: normal;
+  padding: 0 5px;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  text-align: inherit;
+  width: 100%;
+  line-height: 24px;
+  background: none;
+}
+
+.option > button:hover {
+  text-decoration: underline;
+}
+
+.option.selected > button{
+  font-weight: bold;
+}
+
+.option.delete > button {
+  color: #ff4136
+}

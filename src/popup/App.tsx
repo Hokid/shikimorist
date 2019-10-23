@@ -11,13 +11,11 @@ type Props = {
 
 const App: React.FC<Props> = (props) => {
     return (
-        <div>
-            <IoCProvider container={props.container}>
-                <AuthContextProvider>
-                    <MainPage/>
-                </AuthContextProvider>
-            </IoCProvider>
-        </div>
+        <IoCProvider container={props.container}>
+            <AuthContextProvider>
+                <MainPage/>
+            </AuthContextProvider>
+        </IoCProvider>
     );
 };
 

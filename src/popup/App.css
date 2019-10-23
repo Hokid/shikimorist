@@ -1,5 +1,6 @@
-html, body {
-  width: 600px;
-  height: 500px;
+html, body, #root {
+  width: 270px;
+  height: 220px;
+  position: relative;
 }
 
