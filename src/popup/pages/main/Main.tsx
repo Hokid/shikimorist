@@ -1,26 +1,32 @@
 import React, {Component} from 'react';
-import {Message, PingPage} from '../../../core/messages';
-import {AnimesApi, IAnime} from '../../../core/api/animes';
+import {IAnime} from '../../../core/api/animes';
+import * as AsyncMirror from '@redtea/async-mirror';
 import {AsyncState, Fulfilled} from '@redtea/async-mirror';
 import {authContext, IAuthContext} from '../../contexts/Authorization';
 import {TakeContexts} from '../../contexts/TakeContext';
-import * as AsyncMirror from '@redtea/async-mirror';
 import {TYPES} from '../../../iocTypes';
 import {resolve} from 'inversify-react';
-import {IRate, RateStatus, UsersRateApi} from '../../../core/api/usersRate';
+import {RateStatus} from '../../../core/api/usersRate';
 import {AnimeRate} from '../../../core/anime-rate/AnimeRate';
 import {Animes} from '../../../core/animes/Animes';
 import {AnimeRates} from '../../../core/anime-rate/AnimeRates';
 import {AddToList} from './screens/add-to-list/AddToList';
 import {RateControl} from './screens/rate-control/RateControl';
+import {Empty} from './screens/empty/Empty';
+import {AnimePageClient} from '../../../core/anime-page/AnimePageClient';
+import {PageLookupResult} from '../../../core/anime-page/types';
+import {Loader} from './screens/loader/Loader';
+import {ErrorScreen} from './screens/error/Error';
+import {SignIn} from './screens/sign-in/SignIn';
 
 
 type Props = {
     authContext: IAuthContext;
 };
 type State = {
-    anime: AsyncState<IAnime | null, string> | null;
-    rate: AsyncState<AnimeRate | null, string> | null;
+    page: AsyncState<PageLookupResult | null, string>;
+    anime: AsyncState<IAnime | null, string>;
+    rate: AsyncState<AnimeRate | null, string>;
     updating: boolean;
 };
 
@@ -31,88 +37,75 @@ export class MainPageBase extends Component<Props, State> {
     @resolve(TYPES.AnimeRates)
     animeRates!: AnimeRates;
 
+    @resolve(TYPES.config.shikimoriHost)
+    shikimoriHost!: string;
+
+    animePage = new AnimePageClient();
+
     state: State = {
-        anime: null,
-        rate: null,
+        page: AsyncMirror.pending(),
+        anime: AsyncMirror.pending(),
+        rate: AsyncMirror.pending(),
         updating: false
     };
 
     componentDidMount() {
-        chrome.runtime.onMessage.addListener(this.onMessage);
-        chrome.tabs.query({active: true, currentWindow: true},tabs => {
-            if (tabs[0]) {
-                console.log('ping');
-                chrome.tabs.sendMessage(tabs[0].id as number, {
-                    event: 'pingPage'
-                } as PingPage);
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        chrome.runtime.onMessage.removeListener(this.onMessage);
+        this.tryUpdate();
     }
 
     render() {
         if (!this.props.authContext.isAuthorized) {
             return (
-                <button onClick={this.props.authContext.signIn}>Войти</button>
+                <SignIn/>
             );
         }
 
-        const {anime} = this.state;
+        const {page, anime, rate} = this.state;
 
-        return (
-            <>
-                {
-                    (!anime || (anime.isFulfilled && !anime.value)) && (
-                        'Ничего нет'
-                    )
-                }
-                {
-                    !!anime && anime.isRejected && (
-                        'Ошибка'
-                    )
-                }
-                {this.renderAddToList()}
-                {this.renderRateControl()}
-            </>
-        );
-    }
+        if (page.isPending || anime.isPending || rate.isPending) {
+            return (
+                <Loader/>
+            );
+        }
 
-    renderAddToList() {
-        if (this.hasAnime() && !this.hasRate()) {
+        if (page.isRejected || anime.isRejected || rate.isRejected) {
+            return (
+                <ErrorScreen
+                    onUpdate={() => this.tryUpdate()}
+                />
+            );
+        }
+
+        if (!page.value || !anime.value) {
+            return (
+                <Empty/>
+            );
+        }
+
+        if (!rate.value) {
             return (
                 <AddToList
+                    anime={anime.value}
                     onAdd={this.onAddToList}
-                />
-            )
-        }
-
-        return null;
-    }
-
-    renderRateControl() {
-        if (this.hasAnime() && this.hasRate()) {
-            const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
-            const anime = (this.state.anime as Fulfilled<IAnime>).value;
-
-            return (
-                <RateControl
-                    value={rate}
-                    maxEpisodes={anime.episodes}
-                    updating={this.state.updating}
-                    onChangeStatus={this.onChangeStatus}
-                    onIncrementEp={this.onIncrementEp}
-                    onDecrementEp={this.onDecrementEp}
-                    onChangeScore={this.onChangeScore}
-                    onChangeRewatches={this.onChangeRewatches}
-                    onDelete={this.onDelete}
                 />
             );
         }
 
-        return null;
+        return (
+            <RateControl
+                value={rate.value}
+                anime={anime.value}
+                shikimoriHost={this.shikimoriHost}
+                maxEpisodes={anime.value.episodes}
+                updating={this.state.updating}
+                onChangeStatus={this.onChangeStatus}
+                onIncrementEp={this.onIncrementEp}
+                onDecrementEp={this.onDecrementEp}
+                onChangeScore={this.onChangeScore}
+                onChangeRewatches={this.onChangeRewatches}
+                onDelete={this.onDelete}
+            />
+        );
     }
 
     onAddToList = async () => {
@@ -138,7 +131,7 @@ export class MainPageBase extends Component<Props, State> {
                 updating: false,
                 rate: AsyncMirror.resolve(rate.clone())
             });
-        } catch(error) {
+        } catch (error) {
             console.error(error);
             this.setState({
                 updating: false
@@ -235,55 +228,49 @@ export class MainPageBase extends Component<Props, State> {
             const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
             await this.animeRates.delete(rate.id);
             this.setState({
-                rate: null
+                rate: AsyncMirror.resolve(null)
             });
         }
     };
 
-    onMessage = (message: Message) => {
-        if (message.event === 'clear') {
-            this.setState({
-                anime: null
-            });
-        } else if (message.event === 'got_name') {
-            this.search(message.data);
-        }
-    };
-
-    async search(name: string) {
+    async tryUpdate() {
         this.setState({
+            page: AsyncMirror.pending(),
             anime: AsyncMirror.pending(),
-            rate: AsyncMirror.pending()
+            rate: AsyncMirror.pending(),
         });
 
         try {
-            const anime = await this.animes.search(name);
+            const response = await this.animePage.request();
+            const anime = response
+                ? await this.animes.search(response.name)
+                : null;
             const rate = anime
                 ? await this.animeRates.getByAnimeId(anime.id)
                 : null;
 
             this.setState({
+                page: AsyncMirror.resolve(response),
                 anime: AsyncMirror.resolve(anime),
                 rate: AsyncMirror.resolve(rate),
             });
-        } catch(error) {
-            console.error(error);
+        } catch (error) {
             this.setState({
+                page: AsyncMirror.reject(error.message),
                 anime: AsyncMirror.reject(error.message),
                 rate: AsyncMirror.reject(error.message),
             });
         }
-    }
-
+    };
 
     hasAnime() {
         const {anime} = this.state;
-        return !!anime && anime.isFulfilled && !!anime.value;
+        return anime.isFulfilled && !!anime.value;
     }
 
     hasRate() {
         const {rate} = this.state;
-        return !!rate && rate.isFulfilled && !!rate.value;
+        return rate.isFulfilled && !!rate.value;
     }
 }
 

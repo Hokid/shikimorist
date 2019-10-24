@@ -20,10 +20,10 @@ import {AnimeRates} from '../core/anime-rate/AnimeRates';
 import {Animes} from '../core/animes/Animes';
 import {ProfileApi} from '../core/api/profile';
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {faStar, faStarHalf, faChevronLeft, faList, faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
+import {faStar, faStarHalf, faChevronLeft, faList, faPlus, faMinus, faBars} from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-    faStar, faStarHalf, faChevronLeft, faList, faPlus, faMinus
+    faStar, faStarHalf, faChevronLeft, faList, faPlus, faMinus, faBars
 );
 
 const container = new Container({

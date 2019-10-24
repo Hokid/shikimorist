@@ -2,19 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ce1e4a8-712a-4dc6-8ad8-20514eda8f98" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/popup/pages/main/screens/add-to-list/AddToList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/anime-rate/AnimeRate.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/anime-rate/AnimeRate.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/anime-rate/AnimeRates.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/anime-rate/AnimeRates.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/content_script.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/content_script.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/api/animes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/api/animes/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/api/usersRate/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/api/usersRate/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/popup/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/popup/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/popup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/popup/pages/main/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/Main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/elements/add-to-list/AddToList.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/RateControl.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/screens/rate-control/RateControl.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/elements/Rate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/screens/rate-control/elements/Rate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/elements/counter/Counter.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/elements/counter/Counter.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/layout/with-header/WithHeader.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/screens/add-to-list/AddToList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/screens/add-to-list/AddToList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/screens/rate-control/RateControl.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/screens/rate-control/RateControl.tsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,10 +24,10 @@
         <option value="JavaScript File" />
         <option value="ReactComponent.tsx" />
         <option value="TypeScript JSX File" />
-        <option value="TypeScript File" />
         <option value="ReactFC" />
-        <option value="ReactFC.tsx" />
         <option value="CSS File" />
+        <option value="ReactFC.tsx" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -47,7 +43,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/popup/pages/main/elements/side-button" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/core/anime-page" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -55,19 +51,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/popup/pages/main/elements/back-side-button" />
-      <recent name="$PROJECT_DIR$/src/popup/pages/main/screens" />
-      <recent name="$PROJECT_DIR$/src/popup/pages/main/layout/with-back" />
-      <recent name="$PROJECT_DIR$/src/popup/pages/main" />
-      <recent name="$PROJECT_DIR$/src/popup/api" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/core/anime-page" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/screens/empty" />
       <recent name="$PROJECT_DIR$/src/popup/pages/main/elements/side-button" />
       <recent name="$PROJECT_DIR$/src/popup/pages/main/elements" />
       <recent name="$PROJECT_DIR$/src/popup/pages/main/layout/with-header" />
-      <recent name="$PROJECT_DIR$/src/popup/pages/main/elements/rate-control/elements" />
-      <recent name="$PROJECT_DIR$/src/core/api" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/screens/menu" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/screens/error" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/screens/loader" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/screens/empty" />
+      <recent name="$PROJECT_DIR$/src/popup/pages/main/elements/back-side-button" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -97,7 +93,8 @@
       <workItem from="1571700624246" duration="10289000" />
       <workItem from="1571785150608" duration="9276000" />
       <workItem from="1571800586032" duration="6000" />
-      <workItem from="1571810247314" duration="13574000" />
+      <workItem from="1571810247314" duration="13735000" />
+      <workItem from="1571895741088" duration="13311000" />
     </task>
     <task id="LOCAL-00001" summary="chore: some useless code">
       <created>1571673771888</created>
@@ -134,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571815996099</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: add more visual and ability to delete from rate list">
+      <created>1571826506412</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1571826506412</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +164,7 @@
     <MESSAGE value="chore: eject" />
     <MESSAGE value="feat: add some code" />
     <MESSAGE value="feat: add rate visual" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add rate visual" />
+    <MESSAGE value="feat: add more visual and ability to delete from rate list" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add more visual and ability to delete from rate list" />
   </component>
 </project>

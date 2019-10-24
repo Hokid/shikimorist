@@ -6,9 +6,9 @@ import {ListSideButton} from '../../elements/list-side-button/ListSideButton';
 import {BackSideButton} from '../../elements/back-side-button/BackSideButton';
 import {List} from '../../elements/list/List';
 import {Counter} from '../../elements/counter/Counter';
-
-const listOptions = Object.values(RateStatus);
-const scoreOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+import {Menu} from '../menu/Menu';
+import {IAnime} from '../../../../../core/api/animes';
+import {getAnimeName} from '../../../../../core/utils';
 
 type Props = {
     value: {
@@ -17,6 +17,8 @@ type Props = {
         rewatches: number;
         status: RateStatus;
     };
+    anime: IAnime;
+    shikimoriHost: string;
     maxEpisodes: number;
     updating?: boolean;
     onChangeStatus(status: RateStatus): any;
@@ -58,6 +60,7 @@ export function RateControl(props: Props) {
                 />
             }
         >
+            <Menu/>
             <div
                 style={{
                     display: 'flex',
@@ -70,28 +73,45 @@ export function RateControl(props: Props) {
                         flexGrow: 1
                     }}
                 >
+                    <a
+                        style={{
+                            display: 'block',
+                            padding: '0 12px 0 45px',
+                            lineHeight: '24px',
+                            color: '#000000',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            width: 193
+                        }}
+                        title={getAnimeName(props.anime)}
+                        href={`${props.shikimoriHost}${props.anime.url}`}
+                        target="_blank"
+                    >
+                        {getAnimeName(props.anime)}
+                    </a>
+                    <div style={{height: 12}}/>
                     {
                         props.value.status === RateStatus.rewatching && (
-                            <>
-                                <p style={{textAlign: 'center'}}>Пересмотренно</p>
+                            <Field label="Пересмотренно">
                                 <Counter
                                     onDown={() => props.onChangeRewatches(props.value.rewatches - 1)}
                                     onUp={() => props.onChangeRewatches(props.value.rewatches + 1)}
                                     loading={props.updating}
                                     current={props.value.rewatches}
                                 />
-                                <div style={{height: 12}}/>
-                            </>
+                            </Field>
                         )
                     }
-                    <p style={{textAlign: 'center'}}>Эпизоды</p>
-                    <Counter
-                        onDown={props.onDecrementEp}
-                        onUp={props.onIncrementEp}
-                        loading={props.updating}
-                        current={props.value.episodes}
-                        max={props.maxEpisodes}
-                    />
+                    <Field label="Эпизоды">
+                        <Counter
+                            onDown={props.onDecrementEp}
+                            onUp={props.onIncrementEp}
+                            loading={props.updating}
+                            current={props.value.episodes}
+                            max={props.maxEpisodes}
+                        />
+                    </Field>
                 </div>
                 <div
                     style={{
@@ -108,4 +128,36 @@ export function RateControl(props: Props) {
             </div>
         </WithSideLayout>
     );
+}
+
+function Field(
+    props: {
+        label: string,
+        children?: React.ReactNode
+    }
+) {
+    return (
+        <div
+            style={{
+                margin: '0 0 6px',
+                color: '#000000',
+                padding: '12px 6px',
+                display: 'flex',
+                alignItems: 'center'
+            }}
+        >
+            <span
+                style={{
+                    flexGrow: 1,
+                    paddingRight: 12
+                }}
+            >{props.label}</span>
+            <div
+                style={{
+                    width: 120,
+                    flexGrow: 0
+                }}
+            >{props.children}</div>
+        </div>
+    )
 }

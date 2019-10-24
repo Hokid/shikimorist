@@ -1,32 +1,30 @@
 import {getName} from './core/parser';
 import {ClearMessage, GotNameMessage, Message} from './core/messages';
+import {AnimePageServer} from './core/anime-page/AnimePageServer';
 
-chrome.runtime.onMessage.addListener((message: Message) => {
-    if (message.event === 'pingPage') {
-        console.log('pong');
-        update();
-    }
+const ensurePageLoaded = new Promise((resolve, reject) => {
+    const listener = () => {
+        resolve();
+    };
+    window.addEventListener('load', listener);
 });
 
-window.addEventListener('load', (event) => {
-    update();
-});
+const server = new AnimePageServer(
+    async (response) => {
+        await ensurePageLoaded;
 
-function update() {
-    const name = getName(
-        window.location.host,
-        window.location.pathname,
-        window.document
-    );
+        const name = getName(
+            window.location.host,
+            window.location.pathname,
+            window.document
+        );
 
-    chrome.runtime.sendMessage({
-        event: 'clear'
-    } as ClearMessage);
-
-    if (name) {
-        chrome.runtime.sendMessage({
-            event: 'got_name',
-            data: name
-        } as GotNameMessage);
+        if (name) {
+            response({
+                name
+            });
+        } else {
+            response(null)
+        }
     }
-}
+);

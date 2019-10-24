@@ -4,10 +4,11 @@
   background: #1d78b7;
   color: #ffffff;
   padding: 0;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
   text-align: center;
+  font-size: 7px;
   cursor: pointer;
 }
 
@@ -18,7 +19,7 @@
 .number {
   display: inline-block;
   vertical-align: middle;
-  width: 110px;
+  width: 80px;
   font-weight: bold;
 }
 
