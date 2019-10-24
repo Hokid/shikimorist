@@ -24,9 +24,9 @@ type Props = {
     authContext: IAuthContext;
 };
 type State = {
-    page: AsyncState<PageLookupResult | null, string>;
-    anime: AsyncState<IAnime | null, string>;
-    rate: AsyncState<AnimeRate | null, string>;
+    page: AsyncState<PageLookupResult | null>;
+    anime: AsyncState<IAnime | null>;
+    rate: AsyncState<AnimeRate | null>;
     updating: boolean;
 };
 
@@ -242,12 +242,15 @@ export class MainPageBase extends Component<Props, State> {
 
         try {
             const response = await this.animePage.request();
+            console.log(1);
             const anime = response
                 ? await this.animes.search(response.name)
                 : null;
+            console.log(anime);
             const rate = anime
                 ? await this.animeRates.getByAnimeId(anime.id)
                 : null;
+            console.log(1);
 
             this.setState({
                 page: AsyncMirror.resolve(response),
@@ -255,10 +258,11 @@ export class MainPageBase extends Component<Props, State> {
                 rate: AsyncMirror.resolve(rate),
             });
         } catch (error) {
+            console.log(error);
             this.setState({
-                page: AsyncMirror.reject(error.message),
-                anime: AsyncMirror.reject(error.message),
-                rate: AsyncMirror.reject(error.message),
+                page: AsyncMirror.reject(error),
+                anime: AsyncMirror.reject(error),
+                rate: AsyncMirror.reject(error),
             });
         }
     };

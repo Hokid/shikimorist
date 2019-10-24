@@ -1,5 +1,4 @@
 import {getName} from './core/parser';
-import {ClearMessage, GotNameMessage, Message} from './core/messages';
 import {AnimePageServer} from './core/anime-page/AnimePageServer';
 
 const ensurePageLoaded = new Promise((resolve, reject) => {

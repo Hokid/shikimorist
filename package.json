@@ -1,5 +1,6 @@
 {
   "name": "shikimorist",
+  "description": "Обновляй свой список аниме(оценки, количество просмотренных серий) на shikimori.org не выходя с любимого сайта онлайн просмотра.",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
