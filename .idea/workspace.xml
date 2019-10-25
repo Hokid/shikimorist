@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ce1e4a8-712a-4dc6-8ad8-20514eda8f98" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/background.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/background.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content_script.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/content_script.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/parser/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/parser/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/Main.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="7ce1e4a8-712a-4dc6-8ad8-20514eda8f98" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +84,7 @@
       <workItem from="1571785150608" duration="9276000" />
       <workItem from="1571800586032" duration="6000" />
       <workItem from="1571810247314" duration="13735000" />
-      <workItem from="1571895741088" duration="21922000" />
+      <workItem from="1571895741088" duration="22025000" />
     </task>
     <task id="LOCAL-00001" summary="chore: some useless code">
       <created>1571673771888</created>
@@ -144,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571909102007</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: add more parsers, update readme, add promote images">
+      <created>1571920053444</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1571920053444</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +170,7 @@
     <MESSAGE value="feat: add rate visual" />
     <MESSAGE value="feat: add more visual and ability to delete from rate list" />
     <MESSAGE value="feat: update visual, add menu, contacts" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update visual, add menu, contacts" />
+    <MESSAGE value="feat: add more parsers, update readme, add promote images" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add more parsers, update readme, add promote images" />
   </component>
 </project>
