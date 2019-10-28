@@ -14,4 +14,7 @@ export const TYPES = {
   Store: Symbol.for('Store'),
   AnimeRates: Symbol.for('AnimesRates'),
   Animes: Symbol.for('Animes'),
+  stores: {
+    main: Symbol.for('stores.main'),
+  }
 };

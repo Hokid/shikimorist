@@ -54,6 +54,16 @@ export class AnimeRate {
         return this.data.episodes;
     }
 
+    async setEpisodes(episodes: number): Promise<number> {
+        const result = await this.api.update(this.data.id, {
+            episodes
+        });
+
+        this.data = result;
+
+        return this.data.episodes;
+    }
+
     async setStatus(status: RateStatus): Promise<RateStatus> {
         const result = await this.api.update(this.data.id, {
             status
@@ -82,6 +92,10 @@ export class AnimeRate {
         this.data = result;
 
         return this.data.rewatches;
+    }
+
+    async delete() {
+        await this.api.delete(this.data.id);
     }
 
     clone(): AnimeRate {

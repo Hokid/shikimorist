@@ -6,7 +6,7 @@ import {authContext, IAuthContext} from '../../contexts/Authorization';
 import {TakeContexts} from '../../contexts/TakeContext';
 import {TYPES} from '../../../iocTypes';
 import {resolve} from 'inversify-react';
-import {RateStatus} from '../../../core/api/usersRate';
+import {IRate, RateStatus} from '../../../core/api/usersRate';
 import {AnimeRate} from '../../../core/anime-rate/AnimeRate';
 import {Animes} from '../../../core/animes/Animes';
 import {AnimeRates} from '../../../core/anime-rate/AnimeRates';
@@ -18,10 +18,13 @@ import {PageLookupResult} from '../../../core/anime-page/types';
 import {Loader} from './screens/loader/Loader';
 import {ErrorScreen} from './screens/error/Error';
 import {SignIn} from './screens/sign-in/SignIn';
+import {MainStore} from '../../stores/Main';
+import {inject, observer} from 'mobx-react';
 
 
 type Props = {
     authContext: IAuthContext;
+    mainStore: MainStore;
 };
 type State = {
     page: AsyncState<PageLookupResult | null>;
@@ -30,27 +33,16 @@ type State = {
     updating: boolean;
 };
 
+@inject('mainStore')
+@observer
 export class MainPageBase extends Component<Props, State> {
-    @resolve(TYPES.Animes)
-    animes!: Animes;
-
-    @resolve(TYPES.AnimeRates)
-    animeRates!: AnimeRates;
-
     @resolve(TYPES.config.shikimoriHost)
     shikimoriHost!: string;
 
-    animePage = new AnimePageClient();
-
-    state: State = {
-        page: AsyncMirror.pending(),
-        anime: AsyncMirror.pending(),
-        rate: AsyncMirror.pending(),
-        updating: false
-    };
-
-    componentDidMount() {
-        this.tryUpdate();
+    async componentDidMount() {
+        if (this.props.authContext.isAuthorized) {
+            await this.props.mainStore.requestForAnime();
+        }
     }
 
     render() {
@@ -60,32 +52,44 @@ export class MainPageBase extends Component<Props, State> {
             );
         }
 
-        const {page, anime, rate} = this.state;
+        const {
+            isPending,
+            isRateUpdating,
+            error,
+            rate,
+            hasAnime,
+            hasRate,
+            anime,
+        } = this.props.mainStore;
 
-        if (page.isPending || anime.isPending || rate.isPending) {
+        if (error) {
+            return (
+                <ErrorScreen
+                    onUpdate={
+                        () => this.props.mainStore.requestForAnime()
+                    }
+                />
+            );
+        }
+
+        if (isPending && !isRateUpdating) {
             return (
                 <Loader/>
             );
         }
 
-        if (page.isRejected || anime.isRejected || rate.isRejected) {
-            return (
-                <ErrorScreen
-                    onUpdate={() => this.tryUpdate()}
-                />
-            );
-        }
-
-        if (!page.value || !anime.value) {
+        if (!hasAnime) {
             return (
                 <Empty/>
             );
         }
 
-        if (!rate.value) {
+        const animeData = anime.value as IAnime;
+
+        if (!hasRate) {
             return (
                 <AddToList
-                    anime={anime.value}
+                    anime={animeData}
                     onAdd={this.onAddToList}
                 />
             );
@@ -93,11 +97,11 @@ export class MainPageBase extends Component<Props, State> {
 
         return (
             <RateControl
-                value={rate.value}
-                anime={anime.value}
+                value={rate as Omit<IRate, 'target_id'>}
+                anime={animeData}
                 shikimoriHost={this.shikimoriHost}
-                maxEpisodes={anime.value.episodes}
-                updating={this.state.updating}
+                maxEpisodes={animeData.episodes}
+                updating={isRateUpdating}
                 onChangeStatus={this.onChangeStatus}
                 onIncrementEp={this.onIncrementEp}
                 onDecrementEp={this.onDecrementEp}
@@ -109,176 +113,35 @@ export class MainPageBase extends Component<Props, State> {
     }
 
     onAddToList = async () => {
-        const anime = (this.state.anime as Fulfilled<IAnime>).value;
-
-        const rate = await this.animeRates.create(anime.id);
-
-        this.setState({
-            rate: AsyncMirror.resolve(rate)
-        });
+        await this.props.mainStore.addAnimeToRateList();
     };
 
     onChangeStatus = async (status: RateStatus) => {
-        const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
-
-        this.setState({
-            updating: true
-        });
-
-        try {
-            await rate.setStatus(status);
-            this.setState({
-                updating: false,
-                rate: AsyncMirror.resolve(rate.clone())
-            });
-        } catch (error) {
-            console.error(error);
-            this.setState({
-                updating: false
-            });
-        }
+        await this.props.mainStore.setRateStatus(status);
     };
 
     onChangeScore = async (score: number) => {
-        const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
-
-        this.setState({
-            updating: true
-        });
-
-        try {
-            await rate.setScore(score);
-            this.setState({
-                updating: false,
-                rate: AsyncMirror.resolve(rate.clone())
-            });
-        } catch (error) {
-            console.error(error);
-            this.setState({
-                updating: false
-            });
-        }
+        await this.props.mainStore.setRateScore(score);
     };
 
     onChangeRewatches = async (rewatches: number) => {
-        const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
-
-        this.setState({
-            updating: true
-        });
-
-        try {
-            await rate.setRewatches(rewatches);
-            this.setState({
-                updating: false,
-                rate: AsyncMirror.resolve(rate.clone())
-            });
-        } catch (error) {
-            console.error(error);
-            this.setState({
-                updating: false
-            });
-        }
+        await this.props.mainStore.setRateRewatches(rewatches);
     };
 
     onIncrementEp = async () => {
-        const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
-
-        this.setState({
-            updating: true
-        });
-
-        try {
-            await rate.increaseEpisodes();
-            this.setState({
-                updating: false,
-                rate: AsyncMirror.resolve(rate.clone())
-            });
-        } catch (error) {
-            console.error(error);
-            this.setState({
-                updating: false
-            });
-        }
+        await this.props.mainStore.incrementRateEpisodes();
     };
 
     onDecrementEp = async () => {
-        const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
-
-        this.setState({
-            updating: true
-        });
-
-        try {
-            await rate.decreaseEpisodes();
-            this.setState({
-                updating: false,
-                rate: AsyncMirror.resolve(rate.clone())
-            });
-        } catch (error) {
-            console.error(error);
-            this.setState({
-                updating: false
-            });
-        }
+        await this.props.mainStore.decrementRateEpisodes();
     };
 
     onDelete = async () => {
-        if (this.hasRate()) {
-            const rate = (this.state.rate as Fulfilled<AnimeRate>).value;
-            await this.animeRates.delete(rate.id);
-            this.setState({
-                rate: AsyncMirror.resolve(null)
-            });
-        }
+        await this.props.mainStore.removeAnimeFromRateList();
     };
-
-    async tryUpdate() {
-        this.setState({
-            page: AsyncMirror.pending(),
-            anime: AsyncMirror.pending(),
-            rate: AsyncMirror.pending(),
-        });
-
-        try {
-            const response = await this.animePage.request();
-            console.log(1);
-            const anime = response
-                ? await this.animes.search(response.name)
-                : null;
-            console.log(anime);
-            const rate = anime
-                ? await this.animeRates.getByAnimeId(anime.id)
-                : null;
-            console.log(1);
-
-            this.setState({
-                page: AsyncMirror.resolve(response),
-                anime: AsyncMirror.resolve(anime),
-                rate: AsyncMirror.resolve(rate),
-            });
-        } catch (error) {
-            console.log(error);
-            this.setState({
-                page: AsyncMirror.reject(error),
-                anime: AsyncMirror.reject(error),
-                rate: AsyncMirror.reject(error),
-            });
-        }
-    };
-
-    hasAnime() {
-        const {anime} = this.state;
-        return anime.isFulfilled && !!anime.value;
-    }
-
-    hasRate() {
-        const {rate} = this.state;
-        return rate.isFulfilled && !!rate.value;
-    }
 }
 
-export function MainPage(props: Omit<Props, 'authContext'>) {
+export function MainPage(props: Omit<Props, 'authContext' | 'mainStore'>) {
     return (
         <TakeContexts
             contexts={{

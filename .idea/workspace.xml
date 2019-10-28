@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ce1e4a8-712a-4dc6-8ad8-20514eda8f98" name="Default Changelist" comment="" />
+    <list default="true" id="7ce1e4a8-712a-4dc6-8ad8-20514eda8f98" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/anime-rate/AnimeRate.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/anime-rate/AnimeRate.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iocTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/iocTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/popup/pages/main/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/popup/pages/main/Main.tsx" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +94,8 @@
       <workItem from="1571800586032" duration="6000" />
       <workItem from="1571810247314" duration="13735000" />
       <workItem from="1571895741088" duration="22025000" />
+      <workItem from="1571978948121" duration="90000" />
+      <workItem from="1572252726325" duration="7163000" />
     </task>
     <task id="LOCAL-00001" summary="chore: some useless code">
       <created>1571673771888</created>
@@ -142,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571920053444</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix: episodes did`t got reset after change status to Rewatching">
+      <created>1572261268250</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1572261268251</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +189,7 @@
     <MESSAGE value="feat: add more visual and ability to delete from rate list" />
     <MESSAGE value="feat: update visual, add menu, contacts" />
     <MESSAGE value="feat: add more parsers, update readme, add promote images" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add more parsers, update readme, add promote images" />
+    <MESSAGE value="fix: episodes did`t got reset after change status to Rewatching" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: episodes did`t got reset after change status to Rewatching" />
   </component>
 </project>

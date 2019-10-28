@@ -21,6 +21,7 @@ import {Animes} from '../core/animes/Animes';
 import {ProfileApi} from '../core/api/profile';
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {faStar, faStarHalf, faChevronLeft, faList, faPlus, faMinus, faBars} from '@fortawesome/free-solid-svg-icons';
+import {MainStore} from './stores/Main';
 
 library.add(
     faStar, faStarHalf, faChevronLeft, faList, faPlus, faMinus, faBars
@@ -46,6 +47,7 @@ container.bind<ProfileApi>(TYPES.ProfileApi).to(ProfileApi);
 container.bind<User>(TYPES.User).to(User);
 container.bind<Animes>(TYPES.Animes).to(Animes);
 container.bind<AnimeRates>(TYPES.AnimeRates).to(AnimeRates);
+container.bind<MainStore>(TYPES.stores.main).to(MainStore);
 
 
 ReactDOM.render(<App container={container}/>, document.getElementById('root'));
