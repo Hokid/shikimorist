@@ -88,7 +88,7 @@
       <workItem from="1571810247314" duration="13735000" />
       <workItem from="1571895741088" duration="22025000" />
       <workItem from="1571978948121" duration="90000" />
-      <workItem from="1572252726325" duration="7990000" />
+      <workItem from="1572252726325" duration="8141000" />
     </task>
     <task id="LOCAL-00001" summary="chore: some useless code">
       <created>1571673771888</created>
@@ -174,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572261999206</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="chore: add short name">
+      <created>1572262111305</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1572262111305</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,6 +213,7 @@
     <MESSAGE value="fix: episodes did`t got reset after change status to Rewatching" />
     <MESSAGE value="feat: mobx integration and add some methods to AnimeRate class" />
     <MESSAGE value="chore: version sync" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: version sync" />
+    <MESSAGE value="chore: add short name" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: add short name" />
   </component>
 </project>
