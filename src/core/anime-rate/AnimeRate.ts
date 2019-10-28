@@ -34,7 +34,7 @@ export class AnimeRate {
                 episodes: current.episodes + 1
             });
 
-            this.data.episodes = result.episodes;
+            this.data = result;
         }
 
         return this.data.episodes;
@@ -48,7 +48,7 @@ export class AnimeRate {
                 episodes: current.episodes - 1
             });
 
-            this.data.episodes = result.episodes;
+            this.data = result;
         }
 
         return this.data.episodes;
@@ -59,7 +59,7 @@ export class AnimeRate {
             status
         });
 
-        this.data.status = result.status;
+        this.data = result;
 
         return this.data.status;
     }
@@ -69,7 +69,7 @@ export class AnimeRate {
             score
         });
 
-        this.data.score = result.score;
+        this.data  = result;
 
         return this.data.score;
     }
@@ -79,7 +79,7 @@ export class AnimeRate {
             rewatches
         });
 
-        this.data.rewatches = result.rewatches;
+        this.data = result;
 
         return this.data.rewatches;
     }
