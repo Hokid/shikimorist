@@ -1,6 +1,6 @@
 {
   "name": "Shikimorist",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Обновляй свой список аниме(оценки, количество просмотренных серий) на shikimori.org не выходя с любимого сайта онлайн просмотра",
   "manifest_version": 2,
   "author": "Kirill Khoroshilov <mr.hokid@gmail.com>",
