@@ -79,7 +79,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "zip": "rm -f build.zip && cd build/ && zip -r ../build.zip * && cd -"
   },
   "eslintConfig": {
     "extends": "react-app"
