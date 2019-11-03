@@ -112,8 +112,8 @@ export class MainPageBase extends Component<Props, State> {
         );
     }
 
-    onAddToList = async () => {
-        await this.props.mainStore.addAnimeToRateList();
+    onAddToList = async (status: RateStatus) => {
+        await this.props.mainStore.addAnimeToRateList(status);
     };
 
     onChangeStatus = async (status: RateStatus) => {

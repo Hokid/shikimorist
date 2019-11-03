@@ -83,13 +83,13 @@ export class MainStore {
     }
 
     @action
-    async addAnimeToRateList() {
+    async addAnimeToRateList(status: RateStatus) {
         if (this.anime.isFulfilled && this.anime.value) {
             const {id} = this.anime.value;
             this.animeRate = AsyncMirror.pending();
 
             try {
-                const rate = await this.animeRates.create(id);
+                const rate = await this.animeRates.create(id, status);
                 this.animeRate = AsyncMirror.resolve(this.getRateAsObject(rate));
                 this.animeRateModel = rate;
             } catch(error) {

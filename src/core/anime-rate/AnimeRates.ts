@@ -29,7 +29,7 @@ export class AnimeRates {
         return new AnimeRate(rate, this.api);
     }
 
-    async create(animeId: number): Promise<AnimeRate> {
+    async create(animeId: number, status: RateStatus): Promise<AnimeRate> {
         const user = await this.user.getProfile();
 
         if (!user) {
@@ -40,7 +40,7 @@ export class AnimeRates {
             episodes: 0,
             rewatches: 0,
             score: 0,
-            status: RateStatus.planned
+            status
         });
 
         return new AnimeRate(rate, this.api);
