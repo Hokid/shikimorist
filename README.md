@@ -1,7 +1,7 @@
 
 # Shikimorist
 
-Обновляй свой список аниме(оценки, количество просмотренных серий) на [shikimori.org](https://shikimori.org) не выходя с любимого сайта онлайн просмотра.
+Быстрый доступ к списку аниме на [shikimori](https://shikimori.one). Отмечай серии, ставь оценку, добавляй аниме не выходя со страницы онлайн просмотра.
 
 <div align="center">
     <img src="promote/4.png" alt="Preview" width="882" />
@@ -11,13 +11,9 @@
 
  - [Расширение для Chrome](https://chrome.google.com/webstore/detail/shikimorist/ldpjmfifbppiopmahkfajeghaapgnbda)
  
-##### Как это работает?
+##### Как пользоваться
 
-Вы переходите на страницу просмотра аниме, к примеру:
-
-[https://yummyanime.club/catalog/item/v-podzemel-e-ya-pojdu-tam-krasavicu-najdu-strela-oriona](https://yummyanime.club/catalog/item/v-podzemel-e-ya-pojdu-tam-krasavicu-najdu-strela-oriona)
-
-Открываете расширение, авторизуетесь, если еще не авторизовались. Далее расширение должно показать данные по аниме из вашего списка на [shikimori.org](https://shikimori.org) или предложить добавить его.
+Авторизуйся на shikimori через расширение после установки. Переходи на страницу аниме на сайте онлайн просмотра(список поддерживаемых можно найти ниже) и открой расширение - оно автоматически найдет аниме в твоем списке, покажет статус, прогресс и оценку или предложит добавить его.
 
 ##### Возможности
 
