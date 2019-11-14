@@ -65,18 +65,40 @@ chrome.runtime.onMessage.addListener((message: Message, _, response) => {
 });
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
-function (details) {
-    if (details.requestHeaders) {
-        for (var i = 0; i < details.requestHeaders.length; ++i) {
-            if (details.requestHeaders[i].name === 'User-Agent') {
-                details.requestHeaders[i].value = 'shikimorist';
-                break;
+    function (details) {
+        if (details.requestHeaders) {
+            for (var i = 0; i < details.requestHeaders.length; ++i) {
+                if (details.requestHeaders[i].name === 'User-Agent') {
+                    details.requestHeaders[i].value = 'shikimorist';
+                    break;
+                }
             }
         }
-    }
 
-    return {requestHeaders: details.requestHeaders};
-},
+        return {requestHeaders: details.requestHeaders};
+    },
     {urls: ["*://shikimori.one/*"], types: ["main_frame", "sub_frame"]},
     ["blocking", "requestHeaders"]
 );
+
+chrome.runtime.onInstalled.addListener(function () {
+    chrome.tabs
+        .query(
+            {
+                url: [
+                    "https://animego.org/anime/*",
+                    "https://yummyanime.club/catalog/item/*",
+                    "https://animestars.org/aniserials/video/*/*",
+                    "https://animebest.org/anime/*",
+                    "https://online.animedia.tv/anime/*"
+                ],
+            },
+            (tabs) => {
+                tabs.forEach(_ => {
+                    chrome.tabs.executeScript(_.id as number, {
+                        file: 'content_script.js'
+                    });
+                })
+            }
+        );
+});
