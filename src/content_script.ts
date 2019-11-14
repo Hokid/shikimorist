@@ -5,7 +5,12 @@ const ensurePageLoaded = new Promise((resolve, reject) => {
     const listener = () => {
         resolve();
     };
-    window.addEventListener('load', listener);
+
+    if (document.readyState === 'complete') {
+        resolve();
+    } else {
+        window.addEventListener('load', listener);
+    }
 });
 
 const server = new AnimePageServer(

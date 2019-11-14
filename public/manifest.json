@@ -20,17 +20,22 @@
     "tabs",
     "storage",
     "*://shikimori.one/*",
+    "*://animego.org/anime/*",
+    "*://yummyanime.club/catalog/item/*",
+    "*://animestars.org/aniserials/video/*/*",
+    "*://animebest.org/anime/*",
+    "*://online.animedia.tv/anime/*",
     "webRequestBlocking",
     "webRequest"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://animego.org/anime/*",
-        "https://yummyanime.club/catalog/item/*",
-        "https://animestars.org/aniserials/video/*/*",
-        "https://animebest.org/anime/*",
-        "https://online.animedia.tv/anime/*"
+        "*://animego.org/anime/*",
+        "*://yummyanime.club/catalog/item/*",
+        "*://animestars.org/aniserials/video/*/*",
+        "*://animebest.org/anime/*",
+        "*://online.animedia.tv/anime/*"
       ],
       "run_at": "document_end",
       "js": [
