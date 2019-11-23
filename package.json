@@ -80,7 +80,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "zip": "rm -f build.zip && cd build/ && zip -r ../build.zip * && cd -"
+    "zip": "rm -f build.zip && cd build/ && zip -r ../build.zip * && cd -",
+    "pub": "npm run build && npm run zip"
   },
   "eslintConfig": {
     "extends": "react-app"
