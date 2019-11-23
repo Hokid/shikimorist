@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Counter.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
@@ -8,6 +8,7 @@ type Props = {
     max?: number;
     current: number;
     onUp(): any;
+    onChange(value: number): any;
     onDown(): any;
 }
 
@@ -27,14 +28,11 @@ export function Counter(props: Props) {
                     icon="minus"
                 />
             </button>
-            <span className={classes.number}>
-                {props.current}
-                {
-                    !!props.max && (
-                        <span> ({props.max})</span>
-                    )
-                }
-            </span>
+            <Value
+                current={props.current}
+                max={props.max}
+                onChange={props.onChange}
+            />
             <button
                 className={classes.button}
                 disabled={props.loading || (!!props.max && props.max <= props.current)}
@@ -46,4 +44,64 @@ export function Counter(props: Props) {
             </button>
         </div>
     );
+}
+
+type ValueProps = {
+    current: number;
+    max?: number;
+    onChange(value: number): any;
+}
+
+function Value(props: ValueProps) {
+    const [isEditable, setEditable] = useState(false);
+
+    const onKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            onChange(event);
+        }
+    };
+    const onChange = (event: any) => {
+        let value = event.target.value;
+
+        setEditable(false);
+
+        if (!value) {
+            return;
+        }
+
+        value = parseInt(value, 10);
+
+        if (!isFinite(value)) {
+            return;
+        }
+
+        if (!!props.max && props.max < value) {
+            props.onChange(props.max);
+            return;
+        }
+
+        props.onChange(value);
+    };
+
+    if (!isEditable) {
+        return (
+            <span className={classes.number} onClick={() => setEditable(true)}>
+                <span>{props.current}</span>
+            </span>
+        );
+    }
+
+    return (
+        <span className={classes.numberValue}>
+            <input
+                type="number"
+                max={props.max}
+                min={0}
+                defaultValue={props.current}
+                autoFocus
+                onKeyDown={onKeyDown}
+                onBlur={onChange}
+            />
+        </span>
+    )
 }

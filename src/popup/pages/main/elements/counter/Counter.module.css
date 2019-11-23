@@ -10,17 +10,34 @@
   text-align: center;
   font-size: 7px;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 .button:disabled {
   background: #ccc6c6;
 }
 
-.number {
+.number,
+.numberValue {
   display: inline-block;
   vertical-align: middle;
   width: 80px;
   font-weight: bold;
+}
+
+.number:hover > span {
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  padding: 0 4px;
+}
+
+.numberValue > input {
+  border: 1px solid #e0e0e0;
+  line-height: 11px;
+  border-radius: 2px;
+  padding: 0 4px;
+  width: 44px;
+  outline: 0;
 }
 
 .number > span {

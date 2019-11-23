@@ -105,6 +105,7 @@ export class MainPageBase extends Component<Props, State> {
                 onChangeStatus={this.onChangeStatus}
                 onIncrementEp={this.onIncrementEp}
                 onDecrementEp={this.onDecrementEp}
+                onChangeEp={this.onChangeEp}
                 onChangeScore={this.onChangeScore}
                 onChangeRewatches={this.onChangeRewatches}
                 onDelete={this.onDelete}
@@ -134,6 +135,10 @@ export class MainPageBase extends Component<Props, State> {
 
     onDecrementEp = async () => {
         await this.props.mainStore.decrementRateEpisodes();
+    };
+
+    onChangeEp = async (value: number) => {
+        await this.props.mainStore.setRateEpisodes(value);
     };
 
     onDelete = async () => {

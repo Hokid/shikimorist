@@ -6,6 +6,7 @@ import {TYPES} from '../../../iocTypes';
 export interface IAnime {
     id: number;
     name: string;
+    score: number;
     russian: string | null;
     episodes: number;
     url: string;
