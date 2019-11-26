@@ -1,6 +1,6 @@
 import {decorate, inject, injectable} from 'inversify';
 import {TYPES} from '../../iocTypes';
-import {RateStatus, UsersRateApi} from '../api/usersRate';
+import {IRate, RateStatus, UsersRateApi} from '../api/usersRate';
 import {AnimeRate} from './AnimeRate';
 import {User} from '../user/User';
 import {AnimesApi} from '../api/animes';
@@ -12,6 +12,10 @@ export class AnimeRates {
         private animeApi: AnimesApi,
         private user: User
     ) {}
+
+    getRateModelFromData(data: IRate): AnimeRate {
+        return new AnimeRate(data, this.api);
+    }
 
     async getByAnimeId(id: number): Promise<AnimeRate | null> {
         const user = await this.user.getProfile();

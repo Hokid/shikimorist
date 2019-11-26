@@ -26,16 +26,16 @@ export class AnimesApi {
         this.api = this.apiClientFactory.createClient();
     }
 
-    async search(token: string): Promise<IAnime | null> {
+    async search(token: string, limit = 5): Promise<IAnime[]> {
         const result = await this.api.get('/api/animes', {
             params: {
                 page: 1,
-                limit: 1,
+                limit,
                 search: token
             },
         });
 
-        return result.data[0] || null;
+        return result.data;
     }
 }
 

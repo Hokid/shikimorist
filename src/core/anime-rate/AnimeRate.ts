@@ -1,10 +1,14 @@
 import {IRate, RateStatus, UsersRateApi} from '../api/usersRate';
 
 export class AnimeRate {
+    isDelete: boolean = false;
+
     constructor(
         private data: IRate,
         private api: UsersRateApi
-    ) {}
+    ) {
+        this.data = {...data};
+    }
 
     get id(): number {
         return this.data.id;
@@ -24,6 +28,10 @@ export class AnimeRate {
 
     get status(): RateStatus {
         return this.data.status;
+    }
+
+    getData(): IRate {
+        return {...this.data};
     }
 
     async increaseEpisodes(): Promise<number> {
@@ -96,6 +104,8 @@ export class AnimeRate {
 
     async delete() {
         await this.api.delete(this.data.id);
+
+        this.isDelete = true;
     }
 
     clone(): AnimeRate {

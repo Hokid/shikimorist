@@ -19,23 +19,14 @@
   "permissions": [
     "tabs",
     "storage",
-    "*://shikimori.one/*",
-    "*://animego.org/anime/*",
-    "*://yummyanime.club/catalog/item/*",
-    "*://animestars.org/aniserials/video/*/*",
-    "*://animebest.org/anime/*",
-    "*://online.animedia.tv/anime/*",
+    "*://*/*",
     "webRequestBlocking",
     "webRequest"
   ],
   "content_scripts": [
     {
       "matches": [
-        "*://animego.org/anime/*",
-        "*://yummyanime.club/catalog/item/*",
-        "*://animestars.org/aniserials/video/*/*",
-        "*://animebest.org/anime/*",
-        "*://online.animedia.tv/anime/*"
+        "*://*/*"
       ],
       "run_at": "document_end",
       "js": [

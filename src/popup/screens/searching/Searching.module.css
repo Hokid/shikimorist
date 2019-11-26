@@ -1,0 +1,55 @@
+.root {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.inputWrapper {
+  background: #f3f3f3;
+  padding: 12px 18px;
+}
+
+.input {
+  border: 1px solid #bfbfbf;
+  border-radius: 2px;
+  padding: 0 6px;
+  display: block;
+  width: 100%;
+  line-height: 36px;
+  box-sizing: border-box;
+}
+
+.listWrapper {
+  padding: 6px 18px 12px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem > button {
+  background: none;
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  text-align: left;
+  line-height: 18px;
+  max-height: 36px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+  max-width: 214px;
+}
+
+.listItem > button:hover {
+  text-decoration: underline;
+}
+
+.listItem + .listItem {
+  margin-top: 6px;
+  border-top: 1px dashed #e0e0e0;
+  padding-top: 6px;
+}

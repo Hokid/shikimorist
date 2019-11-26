@@ -9,8 +9,8 @@ export class Animes {
     ) {
     }
 
-    async search(name: string): Promise<IAnime | null> {
-        return this.api.search(name);
+    async search(name: string, limit = 5): Promise<IAnime[]> {
+        return this.api.search(name, limit);
     }
 }
 

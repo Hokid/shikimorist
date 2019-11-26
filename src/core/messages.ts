@@ -1,3 +1,5 @@
+import {IAnime} from './api/animes';
+
 export type GotNameMessage = {
     event: 'got_name',
     data: string
@@ -28,6 +30,11 @@ export type CallAuthMethod = {
     data: string;
 }
 
+export type SetAnime = {
+    event: 'set-anime',
+    value: IAnime;
+}
+
 export type BgAuthUpdateStatus = {
     event: 'background-auth-update-status',
     data: boolean;
@@ -41,4 +48,5 @@ export type Message =
     | RefreshToken
     | PingPage
     | CallAuthMethod
-    | BgAuthUpdateStatus;
+    | BgAuthUpdateStatus
+    | SetAnime;

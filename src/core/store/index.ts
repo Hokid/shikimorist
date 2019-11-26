@@ -1,4 +1,5 @@
 import {injectable} from 'inversify';
+import {IAnime} from '../api/animes';
 
 @injectable()
 export class Store {
@@ -51,5 +52,19 @@ export class Store {
                 (result) => resolve(result.user)
             );
         })
+    }
+
+    async setAnimeForURL(url: string, anime: IAnime | undefined) {
+        return new Promise<void>((resolve, reject) => {
+            chrome.storage.sync.set({
+                [url]: anime
+            }, resolve);
+        });
+    }
+
+    async getAnimeForURL(url: string): Promise<IAnime | undefined | void> {
+        return new Promise<void>((resolve, reject) => {
+            chrome.storage.sync.get(url, (result) => resolve(result[url]));
+        });
     }
 }

@@ -1,7 +1,6 @@
-import {AxiosInstance} from 'axios';
+import axios, {AxiosInstance} from 'axios';
 import {ApiResponse, IApiClientFactory} from './types';
 import {AbstractAuthProvider} from './AbstractAuthProvider';
-import axios from 'axios';
 import {decorate, inject, injectable, optional} from 'inversify';
 import {TYPES} from '../../iocTypes';
 

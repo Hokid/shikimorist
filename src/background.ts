@@ -86,11 +86,7 @@ chrome.runtime.onInstalled.addListener(function () {
         .query(
             {
                 url: [
-                    "https://animego.org/anime/*",
-                    "https://yummyanime.club/catalog/item/*",
-                    "https://animestars.org/aniserials/video/*/*",
-                    "https://animebest.org/anime/*",
-                    "https://online.animedia.tv/anime/*"
+                    "*://*/*",
                 ],
             },
             (tabs) => {

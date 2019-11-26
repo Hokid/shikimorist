@@ -30,7 +30,7 @@ import {
     faBars,
     faPlay, faListAlt
 } from '@fortawesome/free-solid-svg-icons';
-import {MainStore} from './stores/Main';
+import {MainState} from './states/Main';
 
 library.add(
     faStar, faStarHalf, faChevronLeft, faList, faPlus, faMinus, faBars, faPlay, faListAlt
@@ -56,7 +56,7 @@ container.bind<ProfileApi>(TYPES.ProfileApi).to(ProfileApi);
 container.bind<User>(TYPES.User).to(User);
 container.bind<Animes>(TYPES.Animes).to(Animes);
 container.bind<AnimeRates>(TYPES.AnimeRates).to(AnimeRates);
-container.bind<MainStore>(TYPES.stores.main).to(MainStore);
+container.bind<MainState>(TYPES.stores.main).to(MainState);
 
 
 ReactDOM.render(<App container={container}/>, document.getElementById('root'));

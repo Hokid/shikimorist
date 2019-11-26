@@ -2,8 +2,7 @@ import React from 'react';
 import './App.css';
 import {Container} from 'inversify';
 import {Provider as IoCProvider} from 'inversify-react';
-import {MainPage} from './pages/main/Main';
-import {AuthContextProvider} from './contexts/Authorization';
+import {ScreensView} from './ScreensView';
 import {Provider as StoreProvider} from 'mobx-react';
 import {TYPES} from '../iocTypes';
 
@@ -19,9 +18,7 @@ const App: React.FC<Props> = (props) => {
             <StoreProvider
                 mainStore={mainStore}
             >
-                <AuthContextProvider>
-                    <MainPage/>
-                </AuthContextProvider>
+                <ScreensView/>
             </StoreProvider>
         </IoCProvider>
     );
