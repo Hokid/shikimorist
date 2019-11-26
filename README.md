@@ -4,7 +4,12 @@
 Быстрый доступ к списку аниме на [shikimori](https://shikimori.one). Отмечай серии, ставь оценку, добавляй аниме не выходя со страницы онлайн просмотра.
 
 <div align="center">
-    <img src="promote/4.png" alt="Preview" width="882" />
+    <img src="promote/s_in_list.png" alt="Preview" width="882" />
+</div>
+<div>
+    <img src="promote/s_add_to_list.png" alt="Preview" width="150" />
+    <img src="promote/s_change_list.png" alt="Preview" width="150" />
+    <img src="promote/s_search.png" alt="Preview" width="150" />
 </div>
 
 ##### Установка
