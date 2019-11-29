@@ -89,6 +89,10 @@ export class MainState implements IMainState {
         );
 
         await this.authorization.getReady();
+
+        if (!this.isAuthorized()) {
+            this.screens.push(Screens.SIGN_IN);
+        }
     }
 
     startLoader() {
