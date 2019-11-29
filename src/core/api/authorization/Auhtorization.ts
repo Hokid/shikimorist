@@ -85,6 +85,7 @@ export class AuthorizationApi extends EventEmitter implements IAuthorization {
         this.signInPromise = new ControlledPromise();
 
         chrome.tabs.onUpdated.addListener(this.onUpdate);
+        chrome.tabs.onRemoved.addListener(this.onRemoved);
 
         return this.signInPromise.promise;
     }
@@ -118,18 +119,36 @@ export class AuthorizationApi extends EventEmitter implements IAuthorization {
                             signInPromise.reject(error);
                         }
 
-                        chrome.tabs.onUpdated.removeListener(this.onUpdate);
-                        chrome.tabs.remove(currentTabId);
-
                         this.blockExchangeAttempt = false;
                         this.signInPromise = null;
                         this.currentTabId = null;
+
+                        chrome.tabs.onUpdated.removeListener(this.onUpdate);
+                        chrome.tabs.onRemoved.removeListener(this.onRemoved);
+                        chrome.tabs.remove(currentTabId);
                     }
                 }
             } else {
                 chrome.tabs.onUpdated.removeListener(this.onUpdate);
+                chrome.tabs.onRemoved.removeListener(this.onRemoved);
                 chrome.tabs.remove(currentTabId);
             }
+        }
+    };
+
+    onRemoved = async (tabId: number) => {
+        const {
+            currentTabId,
+            signInPromise
+        } = this;
+
+        if (tabId === currentTabId) {
+            if (signInPromise) {
+                this.signInPromise = null;
+                this.currentTabId = null;
+            }
+
+            chrome.tabs.onRemoved.removeListener(this.onRemoved);
         }
     };
 
