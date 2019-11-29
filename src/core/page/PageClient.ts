@@ -1,16 +1,19 @@
-import {PingPage, SetAnime} from '../messages';
+import {RequestPageData, SetAnime} from '../messages';
 import {PageLookupResult} from './types';
 import {IAnime} from '../api/animes';
+import {ensureInstalled} from './serverInstaller';
 
 
 export class PageClient {
-    request(): Promise<PageLookupResult | null> {
+    async request(): Promise<PageLookupResult | null> {
+        await ensureInstalled();
+
         return new Promise((resolve, reject) => {
             chrome.tabs.query({active: true, currentWindow: true}, tabs => {
                 if (tabs[0]) {
                     chrome.tabs.sendMessage(tabs[0].id as number, {
-                        event: 'pingPage'
-                    } as PingPage, resolve);
+                        event: 'request-page-data'
+                    } as RequestPageData, resolve);
                 } else {
                     resolve(null);
                 }

@@ -7,7 +7,7 @@ import {IApiClientFactory} from './core/api/types';
 import {ApiClientFactory} from './core/api/ClientFactory';
 import {IAuthorization} from './core/api/authorization/types';
 import {AuthorizationApi} from './core/api/authorization/Auhtorization';
-import {Message, PingPage} from './core/messages';
+import {Message} from './core/messages';
 
 const container = new Container({
     defaultScope: "Singleton",
@@ -23,10 +23,10 @@ container.bind<IAuthorization>(TYPES.AuthorizationApi).to(AuthorizationApi);
 const auth = container.get<IAuthorization>(TYPES.AuthorizationApi);
 
 auth.on('updateStatus', (status) => {
-   chrome.runtime.sendMessage({
-       event: 'background-auth-update-status',
-       data: status
-   });
+    chrome.runtime.sendMessage({
+        event: 'background-auth-update-status',
+        data: status
+    });
 });
 
 chrome.runtime.onMessage.addListener((message: Message, _, response) => {
@@ -35,14 +35,8 @@ chrome.runtime.onMessage.addListener((message: Message, _, response) => {
             case 'refreshToken':
                 auth.refreshToken()
                     .then(
-                        () => {
-                            console.log('done');
-                            return response(true);
-                        },
-                        () => {
-                            console.log('error');
-                            return response(false);
-                        },
+                        () => response(true),
+                        () => response(false),
                     );
                 break;
             case 'signOut':
@@ -80,21 +74,3 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
     {urls: ["*://shikimori.one/*"], types: ["main_frame", "sub_frame"]},
     ["blocking", "requestHeaders"]
 );
-
-chrome.runtime.onInstalled.addListener(function () {
-    chrome.tabs
-        .query(
-            {
-                url: [
-                    "*://*/*",
-                ],
-            },
-            (tabs) => {
-                tabs.forEach(_ => {
-                    chrome.tabs.executeScript(_.id as number, {
-                        file: 'content_script.js'
-                    });
-                })
-            }
-        );
-});

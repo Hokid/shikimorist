@@ -21,8 +21,8 @@ export type RefreshToken = {
     event: 'refreshToken'
 }
 
-export type PingPage = {
-    event: 'pingPage'
+export type RequestPageData = {
+    event: 'request-page-data'
 }
 
 export type CallAuthMethod = {
@@ -46,7 +46,7 @@ export type Message =
     | SignInMessage
     | SignOutMessage
     | RefreshToken
-    | PingPage
+    | RequestPageData
     | CallAuthMethod
     | BgAuthUpdateStatus
     | SetAnime;

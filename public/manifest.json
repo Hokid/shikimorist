@@ -19,20 +19,10 @@
   "permissions": [
     "tabs",
     "storage",
-    "*://*/*",
+    "activeTab",
+    "*://shikimori.one/*",
     "webRequestBlocking",
     "webRequest"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*/*"
-      ],
-      "run_at": "document_end",
-      "js": [
-        "content_script.js"
-      ]
-    }
   ],
   "browser_action": {
     "default_popup": "popup.html"

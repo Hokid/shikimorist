@@ -21,7 +21,7 @@ export class PageServer {
 
     constructor() {
         chrome.runtime.onMessage.addListener((message: Message, _, response) => {
-            if (message.event === 'pingPage') {
+            if (message.event === 'request-page-data') {
                 this.onRequest(response);
                 return true;
             } else if (message.event === 'set-anime') {
