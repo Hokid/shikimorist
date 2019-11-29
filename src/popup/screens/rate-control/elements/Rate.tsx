@@ -185,6 +185,7 @@ export class Rate extends Component<Props, State> {
         for (let i = 1; i < 11; i++) {
             list.push(
                 <div
+                    key={i}
                     style={{
                         height: 24,
                         width: i === 1 ? 8.5: 13.5,
