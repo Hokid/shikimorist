@@ -6,8 +6,8 @@ export class AnimeGoParser implements IParser {
     }
 
     parse(document: Document): string | null {
-        const name = document.querySelector('[itemprop="name"]');
-        const alternatives = document.querySelectorAll('[itemprop="alternativeHeadline"]');
+        const name = document.querySelector('.anime-title h1');
+        const alternatives = document.querySelectorAll('.anime-title [data-readmore="content"] > li');
 
         return (
             alternatives.length
