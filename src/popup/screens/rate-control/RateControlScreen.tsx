@@ -195,7 +195,11 @@ function Details(props: DetailsProps) {
                     color="inherit"
                     style={{marginRight: 3}}
                 />
-                {props.anime.episodes}
+                {
+                    props.anime.episodes !== props.anime.episodes_aired
+                        ? `${props.anime.episodes_aired} / ${props.anime.episodes}`
+                        : props.anime.episodes
+                }
             </span>
             <span style={{marginLeft: 12}}>
                 <FontAwesomeIcon

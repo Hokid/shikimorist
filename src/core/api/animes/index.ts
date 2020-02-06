@@ -9,6 +9,7 @@ export interface IAnime {
     score: number;
     russian: string | null;
     episodes: number;
+    episodes_aired: number;
     url: string;
     image: {
         original: string;
