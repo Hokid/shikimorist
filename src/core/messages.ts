@@ -32,7 +32,7 @@ export type CallAuthMethod = {
 
 export type SetAnime = {
     event: 'set-anime',
-    value: IAnime;
+    value: {id: number};
 }
 
 export type BgAuthUpdateStatus = {

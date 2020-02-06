@@ -1,5 +1,5 @@
 import {IApiClientFactory} from '../types';
-import {AxiosInstance} from 'axios';
+import {AxiosError, AxiosInstance} from 'axios';
 import {decorate, inject, injectable} from 'inversify';
 import {TYPES} from '../../../iocTypes';
 
@@ -37,6 +37,20 @@ export class AnimesApi {
         });
 
         return result.data;
+    }
+
+    async getById(id: number): Promise<IAnime | undefined> {
+        try {
+            const result = await this.api.get('/api/animes/' + id);
+            return result.data;
+        } catch(error) {
+            if (error.response) {
+                if (error.response.status === 404) {
+                    return;
+                }
+            }
+            throw error;
+        }
     }
 }
 

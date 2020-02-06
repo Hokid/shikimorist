@@ -11,10 +11,10 @@ import {Lockable} from './base/Lockable';
 export class AnimeState extends Lockable {
     isLock: boolean = false;
 
-    @observable animeLookupName: string | undefined;
-    @observable anime: IAnime | undefined;
+    @observable animeLookupName?: string | undefined;
+    @observable anime?: IAnime | undefined;
     @observable isRateUpdating: boolean = false;
-    @observable rate: IRate | undefined;
+    @observable rate?: IRate | undefined;
 
     constructor(
         private stateMediator: ILoaderState & IAuthorizationState & IErrorState & IScreenState,
@@ -46,36 +46,45 @@ export class AnimeState extends Lockable {
         const stopLoader = this.stateMediator.startLoader();
 
         try {
-            let anime: IAnime | undefined;
-            let lookupName: string | undefined;
-
-            const pageData = await this.pageClient.request();
-
-            if (pageData) {
-                if (pageData.type === 'anime') {
-                    anime = pageData.value;
-                } else if (pageData.type === 'name') {
-                    lookupName = pageData.value;
-
-                    const searchResult = await this.animes
-                        .search(pageData.value, 1);
-
-                    if (searchResult.length > 0) {
-                        anime = searchResult[0];
-                    }
-                }
-            }
-
+            const data = await this._lookup();
             stopLoader();
-
-            await this.setAnime(anime, lookupName);
+            await this.setAnime(data.anime, data.lookupName);
         } catch (error) {
             stopLoader();
             catchError(error, () => this.lookup());
         }
     }
 
-    async setAnime(anime: IAnime | undefined, animeLookupName?: string) {
+    async _lookup(): Promise<{anime?: IAnime, lookupName?: string}> {
+        let anime: IAnime | undefined;
+        let lookupName: string | undefined;
+
+        const pageData = await this.pageClient.request();
+
+        if (pageData) {
+            if (pageData.type === 'anime') {
+                const {id} = pageData.value;
+                anime = await this.animes.getById(id);
+                if (!anime) {
+                    await this.pageClient.setAnime();
+                    return this._lookup();
+                }
+            } else if (pageData.type === 'name') {
+                lookupName = pageData.value;
+
+                const searchResult = await this.animes
+                    .search(pageData.value, 1);
+
+                if (searchResult.length > 0) {
+                    anime = searchResult[0];
+                }
+            }
+        }
+
+        return {anime, lookupName};
+    }
+
+    async setAnime(anime?: IAnime | undefined, animeLookupName?: string) {
         const catchError = this.stateMediator.getScopedErrorCatcher();
         const stopLoader = this.stateMediator.startLoader();
 

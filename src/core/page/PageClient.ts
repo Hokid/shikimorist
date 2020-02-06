@@ -21,13 +21,13 @@ export class PageClient {
         });
     }
 
-    setAnime(anime: IAnime | undefined): Promise<void> {
+    setAnime(anime: IAnime | void): Promise<void> {
         return new Promise((resolve, reject) => {
             chrome.tabs.query({active: true, currentWindow: true}, tabs => {
                 if (tabs[0]) {
                     chrome.tabs.sendMessage(tabs[0].id as number, {
                         event: 'set-anime',
-                        value: anime
+                        value: anime ? {id: anime.id} : void 0,
                     } as SetAnime, () => resolve());
                 } else {
                     resolve();

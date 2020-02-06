@@ -12,6 +12,10 @@ export class Animes {
     async search(name: string, limit = 5): Promise<IAnime[]> {
         return this.api.search(name, limit);
     }
+
+    async getById(id: number): Promise<IAnime | undefined> {
+        return this.api.getById(id);
+    }
 }
 
 decorate(inject(TYPES.AnimesApi) as ParameterDecorator, Animes, 0);

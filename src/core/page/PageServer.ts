@@ -25,18 +25,18 @@ export class PageServer {
                 this.onRequest(response);
                 return true;
             } else if (message.event === 'set-anime') {
-                this.setAnime(message.value)
+                this.setAnimeToCache(message.value)
                     .then(response, response);
                 return true;
             }
         });
     }
 
-    async setAnime(anime: IAnime | undefined): Promise<void> {
+    async setAnimeToCache(anime: {id: number} | undefined): Promise<void> {
         await this.store.setAnimeForURL(this.getLocation(), anime);
     }
 
-    async getAnime(): Promise<IAnime | void> {
+    async getAnimeFromCache(): Promise<{id: number} | void> {
         return this.store.getAnimeForURL(this.getLocation());
     }
 
@@ -45,7 +45,7 @@ export class PageServer {
     }
 
     async onRequest(response: (_: PageLookupResult | null) => any)  {
-        const cached = await this.getAnime();
+        const cached = await this.getAnimeFromCache();
 
         if (cached) {
             response({

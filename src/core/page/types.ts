@@ -1,5 +1,3 @@
-import {IAnime} from '../api/animes';
-
 export type PageLookupName = {
     type: 'name';
     value: string;
@@ -7,7 +5,7 @@ export type PageLookupName = {
 
 export type PageLookupAnime = {
     type: 'anime';
-    value: IAnime;
+    value: { id: number };
 }
 
 export type PageLookupResult = PageLookupName | PageLookupAnime;

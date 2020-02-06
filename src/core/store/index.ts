@@ -54,7 +54,7 @@ export class Store {
         })
     }
 
-    async setAnimeForURL(url: string, anime: IAnime | undefined) {
+    async setAnimeForURL(url: string, anime: {id: number} | undefined) {
         return new Promise<void>((resolve, reject) => {
             chrome.storage.sync.set({
                 [url]: anime
@@ -62,7 +62,7 @@ export class Store {
         });
     }
 
-    async getAnimeForURL(url: string): Promise<IAnime | undefined | void> {
+    async getAnimeForURL(url: string): Promise<{id: number} | undefined | void> {
         return new Promise<void>((resolve, reject) => {
             chrome.storage.sync.get(url, (result) => resolve(result[url]));
         });
