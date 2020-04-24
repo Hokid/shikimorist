@@ -15,7 +15,7 @@
 ##### Установка
 
  - [Расширение для Chrome](https://chrome.google.com/webstore/detail/shikimorist/ldpjmfifbppiopmahkfajeghaapgnbda)
- 
+
 ##### Как пользоваться
 
 Авторизуйся на shikimori через расширение после установки. Переходи на страницу аниме на сайте онлайн просмотра(список поддерживаемых можно найти ниже) и открой расширение - оно автоматически найдет аниме в твоем списке, покажет статус, прогресс и оценку или предложит добавить его.
@@ -35,3 +35,4 @@
  - [https://animestars.org](https://animestars.org)
  - [https://animebest.org](https://animebest.org)
  - [https://online.animedia.tv](https://online.animedia.tv)
+ - [https://animevost.org](https://animevost.org)
