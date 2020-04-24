@@ -2,7 +2,7 @@ import {IParser} from '../types';
 
 export class AnimebestParser implements IParser {
     checkUrl(host: string, path: string): boolean {
-        return host === 'animebest.org' && /^\/anime\/.+/.test(path);
+        return host === 'animebest.org' && /^\/anime(-ab)?\/.+/.test(path);
     }
 
     parse(document: Document): string | null {

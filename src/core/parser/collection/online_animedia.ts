@@ -11,6 +11,6 @@ export class OnlineAnimediaParser implements IParser {
         if (!name) {
             return null;
         }
-        return name.innerHTML;
+        return name.innerHTML.trim();
     }
 }
