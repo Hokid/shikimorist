@@ -1,4 +1,4 @@
-name: CI
+name: Scheduled parsers check
 
 on:
   schedule:
