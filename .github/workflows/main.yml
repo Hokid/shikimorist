@@ -3,7 +3,7 @@ name: Scheduled parsers check
 on:
   schedule:
     - cron: "0 8 * * 5" # every friday at 8 AM
-    - cron: "0 21 4 8 *" # test
+  workflow_dispatch:
 
 jobs:
   test:
