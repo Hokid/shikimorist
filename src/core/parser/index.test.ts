@@ -11,7 +11,7 @@ describe('parsers', function() {
     let page: Page, browser: Browser;
 
     beforeAll(async function() {
-        jest.setTimeout(10000);
+        jest.setTimeout(30000);
         browser = await p.launch();
         page = await browser.newPage();
     });
