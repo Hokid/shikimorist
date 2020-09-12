@@ -1,9 +1,9 @@
-const installDetectHelperCodeTemplate = `
-window.__SHIKIMORIST_PAGE_SERVER_INSTALLED = window.__SHIKIMORIST_PAGE_SERVER_INSTALLED || (() => {
+const installedDetectorScriptTemplate = `
+window.__SHIKIMORIST_ANIME_CONTEXT_SERVER_INSTALLED = window.__SHIKIMORIST_ANIME_CONTEXT_SERVER_INSTALLED || (() => {
     let answer = false;
     
     chrome.runtime.onMessage.addListener((msg, _, response) => {
-        if (msg.event === 'is-touched-{{tabId}}') {
+        if (msg === 'installed-{{tabId}}') {
             response(answer);
             answer = true;
         }
@@ -13,14 +13,14 @@ window.__SHIKIMORIST_PAGE_SERVER_INSTALLED = window.__SHIKIMORIST_PAGE_SERVER_IN
 })();
 `;
 
-const generateInstallDetectHelperCode = (tabId: number) => {
-    return installDetectHelperCodeTemplate.replace('{{tabId}}', '' + tabId);
+const generateInstalledDetectorScript = (tabId: number) => {
+    return installedDetectorScriptTemplate.replace('{{tabId}}', String(tabId));
 };
 
-let installPromise: Promise<void> | void;
+let installedPromise: Promise<void> | void;
 
 function install(): Promise<void> {
-    installPromise = new Promise((resolve, reject) => {
+    installedPromise = new Promise((resolve, reject) => {
         chrome.tabs
             .query(
                 {
@@ -40,11 +40,9 @@ function install(): Promise<void> {
 
                     tabs.forEach(_ => {
                         chrome.tabs.executeScript(_.id as number, {
-                            code: generateInstallDetectHelperCode(_.id as number)
+                            code: generateInstalledDetectorScript(_.id as number)
                         }, () => {
-                            chrome.tabs.sendMessage(_.id as number, {
-                                event: `is-touched-${_.id}`
-                            }, (answer?: boolean) => {
+                            chrome.tabs.sendMessage(_.id as number, `installed-${_.id}`, (answer?: boolean) => {
                                 if (answer === undefined) {
                                     reject();
                                     return;
@@ -62,12 +60,12 @@ function install(): Promise<void> {
             );
     });
 
-    return installPromise;
+    return installedPromise;
 }
 
 export async function ensureInstalled() {
-    if (installPromise) {
-        return installPromise;
+    if (installedPromise) {
+        return installedPromise;
     }
 
     return install();

@@ -3,10 +3,12 @@ import {observable} from 'mobx';
 import {IRate, RateStatus} from '../../core/api/usersRate';
 import {IAnime} from '../../core/api/animes';
 import {AnimeRate} from '../../core/anime-rate/AnimeRate';
-import {PageClient} from '../../core/page/PageClient';
+import {AnimeContextClient} from '../../core/anime-context/AnimeContextClient';
 import {Animes} from '../../core/animes/Animes';
 import {AnimeRates} from '../../core/anime-rate/AnimeRates';
 import {Lockable} from './base/Lockable';
+import {ChromeRuntimeBus} from '../../core/messager/bus-library/chrome-runtime/chrome-runtime-bus';
+import {ChanelFactory} from '../../core/messager/ChanelFactory';
 
 export class AnimeState extends Lockable {
     isLock: boolean = false;
@@ -21,7 +23,13 @@ export class AnimeState extends Lockable {
         private animes: Animes,
         private animeRates: AnimeRates,
         public shikimoriHost: string,
-        private pageClient = new PageClient(),
+        private pageClient = new AnimeContextClient(
+            new ChanelFactory(
+                new ChromeRuntimeBus({
+                    sendMethod: 'currentTab'
+                })
+            )
+        ),
     ) {
         super();
 
@@ -59,14 +67,14 @@ export class AnimeState extends Lockable {
         let anime: IAnime | undefined;
         let lookupName: string | undefined;
 
-        const pageData = await this.pageClient.request();
+        const pageData = await this.pageClient.getAnimeDescription();
 
         if (pageData) {
-            if (pageData.type === 'anime') {
+            if (pageData.type === 'full') {
                 const {id} = pageData.value;
                 anime = await this.animes.getById(id);
                 if (!anime) {
-                    await this.pageClient.setAnime();
+                    await this.pageClient.setAnimeDescription(undefined);
                     return this._lookup();
                 }
             } else if (pageData.type === 'name') {
@@ -89,7 +97,7 @@ export class AnimeState extends Lockable {
         const stopLoader = this.stateMediator.startLoader();
 
         try {
-            await this.pageClient.setAnime(anime);
+            await this.pageClient.setAnimeDescription(anime);
 
             const rate = anime
                 ? await this.animeRates.getByAnimeId(anime.id)
