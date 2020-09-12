@@ -1,8 +1,9 @@
-import {Message} from '../messages';
 import {PageLookupResult} from './types';
 import {Store} from '../store';
-import {IAnime} from '../api/animes';
 import {getName} from '../parser';
+import {Consumer} from '../messager/consumer';
+import {ChromeRuntimeBus} from '../messager/bus-library/chrome-runtime/chrome-runtime-bus';
+import {AnimeInfoMessage, SetAnimeMessage} from './messages';
 
 const ensurePageLoaded = new Promise((resolve, reject) => {
     const listener = () => {
@@ -17,26 +18,33 @@ const ensurePageLoaded = new Promise((resolve, reject) => {
 });
 
 export class PageServer {
-    store = new Store();
+    private store = new Store();
+    private consumer = new Consumer('page', new ChromeRuntimeBus());
 
     constructor() {
-        chrome.runtime.onMessage.addListener((message: Message, _, response) => {
-            if (message.event === 'request-page-data') {
-                this.onRequest(response);
-                return true;
-            } else if (message.event === 'set-anime') {
-                this.setAnimeToCache(message.value)
-                    .then(response, response);
-                return true;
+        this.consumer.on<SetAnimeMessage>('set-anime', (data, resolve, reject) => {
+            if (!data) {
+                return;
             }
+
+            this.setAnimeToCache(data)
+                .then(resolve, reject);
+            return true;
+        });
+
+        this.consumer.on<AnimeInfoMessage>('anime-info', (data, resolve, reject) => {
+            console.log('aaa');
+            this.getAnimeInfo()
+                .then(resolve, reject);
+            return true;
         });
     }
 
-    async setAnimeToCache(anime: {id: number} | undefined): Promise<void> {
+    async setAnimeToCache(anime: { id: number } | undefined): Promise<void> {
         await this.store.setAnimeForURL(this.getLocation(), anime);
     }
 
-    async getAnimeFromCache(): Promise<{id: number} | void> {
+    async getAnimeFromCache(): Promise<{ id: number } | void> {
         return this.store.getAnimeForURL(this.getLocation());
     }
 
@@ -44,15 +52,14 @@ export class PageServer {
         return window.location.href.replace(/^https?:\/\//, '');
     }
 
-    async onRequest(response: (_: PageLookupResult | null) => any)  {
+    async getAnimeInfo(): Promise<PageLookupResult | null> {
         const cached = await this.getAnimeFromCache();
 
         if (cached) {
-            response({
+            return {
                 type: 'anime',
                 value: cached
-            });
-            return;
+            };
         }
 
         await ensurePageLoaded;
@@ -64,12 +71,12 @@ export class PageServer {
         );
 
         if (name) {
-            response({
+            return {
                 type: 'name',
                 value: name
-            });
+            };
         } else {
-            response(null)
+            return null;
         }
     }
 }
