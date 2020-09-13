@@ -13,6 +13,10 @@ import {AnimeState} from './Anime';
 import {ErrorState} from './Error';
 import {SearchingState} from './Searching';
 import {isAuthorizationApiError} from '../../core/api/authorization/utils';
+import {AnimeContextClient} from '../../core/anime-context/AnimeContextClient';
+import {ChanelFactory} from '../../core/messager/ChanelFactory';
+import {ChromeRuntimeBus} from '../../core/messager/bus-library/chrome-runtime/chrome-runtime-bus';
+import {ensureInstalled} from '../../core/anime-context/anime-context-server-installer';
 
 interface IMainState extends
     ILoaderState,
@@ -35,7 +39,14 @@ export class MainState implements IMainState {
         private animes: Animes,
         private animeRates: AnimeRates,
         private authApi: AuthorizationApi,
-        public shikimoriHost: string
+        public shikimoriHost: string,
+        private animeContext = new AnimeContextClient(
+            new ChanelFactory(
+                new ChromeRuntimeBus({
+                    sendMethod: 'currentTab'
+                })
+            )
+        )
     ) {
         this.error = new ErrorState();
         this.screens = new ScreenState();
@@ -45,7 +56,8 @@ export class MainState implements IMainState {
             this,
             animes,
             animeRates,
-            shikimoriHost
+            shikimoriHost,
+            animeContext
         );
         this.searching = new SearchingState(this, animes);
     }
@@ -55,7 +67,13 @@ export class MainState implements IMainState {
             return;
         }
 
-        this.isInitialized = true;
+        try {
+            await ensureInstalled();
+            await this.animeContext.connect();
+        } catch (error) {
+            this.error.setError(error, this.initialize.bind(this));
+            return;
+        }
 
         this.onLoading(status => {
             if (status) {
@@ -93,6 +111,8 @@ export class MainState implements IMainState {
         if (!this.isAuthorized()) {
             this.screens.push(Screens.SIGN_IN);
         }
+
+        this.isInitialized = true;
     }
 
     startLoader() {

@@ -8,3 +8,6 @@ const server = new AnimeContextServer(
         new ChromeRuntimeBus()
     )
 );
+
+server.initialize()
+    .catch(error => console.error(error));

@@ -7,8 +7,6 @@ import {AnimeContextClient} from '../../core/anime-context/AnimeContextClient';
 import {Animes} from '../../core/animes/Animes';
 import {AnimeRates} from '../../core/anime-rate/AnimeRates';
 import {Lockable} from './base/Lockable';
-import {ChromeRuntimeBus} from '../../core/messager/bus-library/chrome-runtime/chrome-runtime-bus';
-import {ChanelFactory} from '../../core/messager/ChanelFactory';
 
 export class AnimeState extends Lockable {
     isLock: boolean = false;
@@ -23,13 +21,7 @@ export class AnimeState extends Lockable {
         private animes: Animes,
         private animeRates: AnimeRates,
         public shikimoriHost: string,
-        private pageClient = new AnimeContextClient(
-            new ChanelFactory(
-                new ChromeRuntimeBus({
-                    sendMethod: 'currentTab'
-                })
-            )
-        ),
+        private pageClient: AnimeContextClient,
     ) {
         super();
 
@@ -63,7 +55,7 @@ export class AnimeState extends Lockable {
         }
     }
 
-    async _lookup(): Promise<{anime?: IAnime, lookupName?: string}> {
+    async _lookup(): Promise<{ anime?: IAnime, lookupName?: string }> {
         let anime: IAnime | undefined;
         let lookupName: string | undefined;
 

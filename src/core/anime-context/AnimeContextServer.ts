@@ -3,8 +3,8 @@ import {Store} from '../store';
 import {getName} from '../parser';
 import {AnimeDescriptionRequestMessage, SetAnimeDescriptionRequestMessage} from './chanel/messages';
 import {ChanelFactory} from '../messager/ChanelFactory';
-import {Chanel} from '../messager/Chanel';
 import {ANIME_DESCIPTION_CONTEXT_CHANEL} from './chanel/chanel';
+import {Server} from '../remote-server/Server';
 
 const ensurePageLoaded = new Promise((resolve, reject) => {
     const listener = () => {
@@ -18,14 +18,15 @@ const ensurePageLoaded = new Promise((resolve, reject) => {
     }
 });
 
-export class AnimeContextServer {
+export class AnimeContextServer extends Server {
     private store = new Store();
-    private chanel: Chanel;
 
     constructor(chanelFactory: ChanelFactory) {
-        this.chanel = chanelFactory.create(ANIME_DESCIPTION_CONTEXT_CHANEL);
+        super(chanelFactory.create(ANIME_DESCIPTION_CONTEXT_CHANEL));
+    }
 
-        this.chanel.on<SetAnimeDescriptionRequestMessage>('set-anime', (data, resolve, reject) => {
+    protected async onInitialization(): Promise<void> {
+        this.onCommand<SetAnimeDescriptionRequestMessage>('set-anime', (data, resolve, reject) => {
             if (!data) {
                 return;
             }
@@ -36,8 +37,7 @@ export class AnimeContextServer {
             return true;
         });
 
-        this.chanel.on<AnimeDescriptionRequestMessage>('anime-info', (data, resolve, reject) => {
-
+        this.onCommand<AnimeDescriptionRequestMessage>('anime-info', (data, resolve, reject) => {
             this.getAnimeDescription()
                 .then(resolve, reject);
 
