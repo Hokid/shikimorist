@@ -1,7 +1,9 @@
 import {Bus, Handler} from './bus';
 import {Message} from './message';
+import {ChanelMessageProducer} from './producer';
+import {ChanelMessageConsumer} from './consumer';
 
-export class Chanel {
+export class Chanel implements ChanelMessageProducer, ChanelMessageConsumer {
     constructor(
         public chanel: string,
         private bus: Bus
