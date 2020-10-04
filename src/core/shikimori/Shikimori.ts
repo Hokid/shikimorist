@@ -10,6 +10,8 @@ import {ReadCredentials} from './credentials/read-credentials';
 import {Storage} from '../storage';
 import { Token as CachedToken } from './api/oauth/data/token';
 import { Token } from './credentials/Token';
+import {AnimeAPI} from './api/anime/AnimeAPI';
+import {UserRatesAPI} from './api/user-rates/UserRatesAPI';
 
 export class Shikimori {
     private parameters: AppParameters & HostParameters;
@@ -23,6 +25,8 @@ export class Shikimori {
 
     public profile: ProfileAPI;
     public authorization: Authorization;
+    public anime: AnimeAPI;
+    public userRates: UserRatesAPI;
 
     constructor(parameters: AppParameters & HostParameters, private storage: Storage) {
         this.storage = storage.addNamespace('shikimori');
@@ -37,6 +41,8 @@ export class Shikimori {
             new Tabs()
         );
         this.profile = new ProfileAPI(this.axiosFactory);
+        this.anime = new AnimeAPI(this.axiosFactory);
+        this.userRates = new UserRatesAPI(this.axiosFactory);
     }
 
     async initialize() {
