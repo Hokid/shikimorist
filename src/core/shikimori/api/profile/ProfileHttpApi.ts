@@ -1,7 +1,8 @@
 import {AxiosFactory} from '../../axios/AxiosFactory';
 import {Profile} from './data/profile';
+import {ProfileApi} from './profile-api';
 
-export class ProfileAPI {
+export class ProfileHttpApi implements ProfileApi {
     constructor(private axiosFactory: AxiosFactory) {
     }
 

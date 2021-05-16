@@ -5,7 +5,7 @@ import {Message} from '../messager/message';
 import {Handler} from '../messager/bus';
 
 export abstract class Server {
-    protected constructor(private channel: Chanel) {
+    protected constructor(protected channel: Chanel) {
         this.channel.on<ServerStatusRequestMessage>('server-status-request', (_, resolve) => {
             resolve(this.status);
             return true;

@@ -1,8 +1,9 @@
 import {AxiosFactory} from '../../axios/AxiosFactory';
 import {Anime} from './data/anime';
+import {AnimeApi} from './anime-api';
 
 
-export class AnimeAPI {
+export class AnimeHttpApi implements AnimeApi {
     constructor(private axiosFactory: AxiosFactory) {
     }
 

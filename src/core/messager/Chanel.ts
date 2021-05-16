@@ -12,7 +12,7 @@ export class Chanel implements ChanelMessageProducer, ChanelMessageConsumer {
 
     on<M extends Message = Message>(
         name: M extends Message<infer N> ? N : string,
-        handler: M extends Message<infer N, infer D, infer R>
+        handler: M extends Message<any, infer D, infer R>
             ? Handler<D, R>
             : Handler<unknown, unknown>
     ): void;
@@ -23,7 +23,7 @@ export class Chanel implements ChanelMessageProducer, ChanelMessageConsumer {
 
     off<M extends Message = Message>(
         name: M extends Message<infer N> ? N : string,
-        handler: M extends Message<infer D, infer R>
+        handler: M extends Message<any, infer D, infer R>
             ? Handler<D, R>
             : Handler<unknown, unknown>
     ): boolean;

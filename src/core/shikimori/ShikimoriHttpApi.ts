@@ -1,48 +1,53 @@
 import {AppParameters} from './parameters/app';
 import {HostParameters} from './parameters/host';
-import {ProfileAPI} from './api/profile/ProfileAPI';
+import {ProfileHttpApi} from './api/profile/ProfileHttpApi';
 import {AxiosFactory} from './axios/AxiosFactory';
 import {Credentials} from './credentials/Credentials';
-import {OAuthAPI} from './api/oauth/OAuthAPI';
-import {Authorization} from './authorization/Authorization';
+import {OAuthHttpApi} from './api/oauth/OAuthHttpApi';
+import {BrowserAuthorization} from './authorization/BrowserAuthorization';
 import {Tabs} from '../tabs/Tabs';
 import {ReadCredentials} from './credentials/read-credentials';
 import {Storage} from '../storage';
-import { Token as CachedToken } from './api/oauth/data/token';
-import { Token } from './credentials/Token';
-import {AnimeAPI} from './api/anime/AnimeAPI';
-import {UserRatesAPI} from './api/user-rates/UserRatesAPI';
+import {Token as CachedToken} from './api/oauth/data/token';
+import {Token} from './credentials/Token';
+import {AnimeHttpApi} from './api/anime/AnimeHttpApi';
+import {UserRatesHttpApi} from './api/user-rates/UserRatesHttpApi';
+import {ProfileApi} from './api/profile/profile-api';
+import {AnimeApi} from './api/anime/anime-api';
+import {UserRatesApi} from './api/user-rates/user-rates-api';
+import {ShikimoriApi} from './shikimori';
+import {AuthorizationApi} from './authorization/authorization-api';
 
-export class Shikimori {
+export class ShikimoriHttpApi implements ShikimoriApi {
+    profile: ProfileApi;
+    authorization: AuthorizationApi;
+    anime: AnimeApi;
+    userRates: UserRatesApi;
     private parameters: AppParameters & HostParameters;
-    private _credentials: Credentials;
     private axiosFactory: AxiosFactory;
-    private oauth: OAuthAPI;
-
-    public get credentials(): ReadCredentials {
-        return this._credentials;
-    }
-
-    public profile: ProfileAPI;
-    public authorization: Authorization;
-    public anime: AnimeAPI;
-    public userRates: UserRatesAPI;
+    private oauth: OAuthHttpApi;
 
     constructor(parameters: AppParameters & HostParameters, private storage: Storage) {
         this.storage = storage.addNamespace('shikimori');
         this.parameters = Object.assign({}, parameters);
         this._credentials = new Credentials();
         this.axiosFactory = new AxiosFactory(this._credentials, parameters.host)
-        this.oauth = new OAuthAPI(this.parameters, this.axiosFactory);
+        this.oauth = new OAuthHttpApi(this.parameters, this.axiosFactory);
         this._credentials.setOAuth(this.oauth);
-        this.authorization = new Authorization(
+        this.authorization = new BrowserAuthorization(
             this._credentials,
             this.oauth,
             new Tabs()
         );
-        this.profile = new ProfileAPI(this.axiosFactory);
-        this.anime = new AnimeAPI(this.axiosFactory);
-        this.userRates = new UserRatesAPI(this.axiosFactory);
+        this.profile = new ProfileHttpApi(this.axiosFactory);
+        this.anime = new AnimeHttpApi(this.axiosFactory);
+        this.userRates = new UserRatesHttpApi(this.axiosFactory);
+    }
+
+    private _credentials: Credentials;
+
+    get credentials(): ReadCredentials {
+        return this._credentials;
     }
 
     async initialize() {

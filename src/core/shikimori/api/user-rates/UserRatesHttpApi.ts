@@ -2,8 +2,9 @@ import {AxiosFactory} from '../../axios/AxiosFactory';
 import {UserRate} from './data/user-rate';
 import {UpdateUserRate} from './data/update-user-rate';
 import {CreateUserRate} from './data/create-user-rate';
+import {UserRatesApi} from './user-rates-api';
 
-export class UserRatesAPI {
+export class UserRatesHttpApi implements UserRatesApi {
     constructor(private axiosFactory: AxiosFactory) {
     }
 

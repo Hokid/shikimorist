@@ -3,22 +3,24 @@ import {ClientStatus} from './statuses';
 import {ServerStatusRequestMessage} from './channel';
 import {Message} from '../messager/message';
 
+export type InferResponse<C> = C extends Message<any, any, infer R> ? R : unknown;
+
 export abstract class Client {
-    protected constructor(private channel: Chanel) {
+    protected constructor(protected channel: Chanel) {
     }
 
-    private _status: ClientStatus = 'wait';
+    private _clientStatus: ClientStatus = 'wait';
 
-    public get status(): ClientStatus {
-        return this._status;
+    public get clientStatus(): ClientStatus {
+        return this._clientStatus;
     }
 
     async connect(): Promise<void> {
-        if (this._status === 'connected') {
+        if (this._clientStatus === 'connected') {
             return;
         }
 
-        this._status = 'connecting';
+        this._clientStatus = 'connecting';
 
         try {
             const message = new ServerStatusRequestMessage();
@@ -26,19 +28,19 @@ export abstract class Client {
             if (serverStatus === 'error') {
                 throw new Error('Server initialization error');
             } else if (serverStatus === 'initialized') {
-                this._status = 'connected';
+                this._clientStatus = 'connected';
                 await this.onConnect();
             } else {
                 return this.connect();
             }
         } catch (error) {
-            this._status = 'connection-error';
+            this._clientStatus = 'connection-error';
             throw error;
         }
     }
 
-    protected async sendCommand<C extends Message = Message>(command: C): Promise<C extends Message<any, any, infer R> ? R : unknown> {
-        if (this.status !== 'connected') {
+    protected async sendCommand<C extends Message = Message>(command: C): Promise<InferResponse<C>> {
+        if (this.clientStatus !== 'connected') {
             throw new Error('Client is not connected to server');
         }
         return this.channel.send<Message>(command, true);

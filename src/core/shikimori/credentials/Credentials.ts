@@ -1,14 +1,14 @@
-import {OAuthAPI} from '../api/oauth/OAuthAPI';
+import {OAuthHttpApi} from '../api/oauth/OAuthHttpApi';
 import {Token} from './Token';
 import {ReadCredentials} from './read-credentials';
 import {WriteCredentials} from './write-credentials';
 import {BehaviorSubject} from 'rxjs';
 
 export class Credentials implements ReadCredentials, WriteCredentials {
-    private oauth!: OAuthAPI;
+    private oauth!: OAuthHttpApi;
     public token: BehaviorSubject<Token | undefined> = new BehaviorSubject<Token | undefined>(undefined);
 
-    setOAuth(oauth: OAuthAPI) {
+    setOAuth(oauth: OAuthHttpApi) {
         this.oauth = oauth;
     }
 

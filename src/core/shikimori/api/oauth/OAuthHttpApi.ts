@@ -4,7 +4,7 @@ import {Token} from './data/token';
 import {HostParameters} from '../../parameters/host';
 import {SignInCallbackParseResult} from './data/sign-in-callback-parse-result';
 
-export class OAuthAPI {
+export class OAuthHttpApi {
     constructor(
         private parameters: AppParameters & HostParameters,
         private axiosFactory: AxiosFactory

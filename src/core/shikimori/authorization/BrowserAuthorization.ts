@@ -1,40 +1,34 @@
 import {Token} from '../../api/authorization/Token';
 import {Tabs} from '../../tabs/Tabs';
 import {WriteCredentials} from '../credentials/write-credentials';
-import {OAuthAPI} from '../api/oauth/OAuthAPI';
+import {OAuthHttpApi} from '../api/oauth/OAuthHttpApi';
 import {BehaviorSubject} from 'rxjs';
 import {first} from 'rxjs/operators';
 import {TabRemovedMessage, TabRemovedMessageData, TabUpdatedMessage, TabUpdatedMessageData} from '../../tabs/channel';
-import {Subscribable} from 'rxjs/src/internal/types';
+import {AuthorizationApi, Status} from './authorization-api';
 
-export type Status = 'waiting-code' | 'exchanging-code' | 'error' | 'idle';
 
-export class Authorization {
+export class BrowserAuthorization implements AuthorizationApi {
+    status = new BehaviorSubject<Status>('idle');
     private authorizationTabId: number | undefined;
 
     constructor(
         private credentials: WriteCredentials,
-        private oauth: OAuthAPI,
+        private oauth: OAuthHttpApi,
         private tabs: Tabs,
     ) {
     }
 
-    private _status = new BehaviorSubject<Status>('idle');
-
-    get status(): Subscribable<Status> {
-        return this._status;
-    }
-
     async signIn() {
-        if (!['idle', 'error'].includes(this._status.value)) {
+        if (!['idle', 'error'].includes(this.status.value)) {
             await this.tabs.activate(this.authorizationTabId!);
-            await this._status
+            await this.status
                 .pipe(first(value => ['idle', 'error'].includes(value)))
                 .toPromise();
             return;
         }
 
-        this._status.next('waiting-code');
+        this.status.next('waiting-code');
 
         const tab = await this.tabs.create({
             url: this.oauth.getSignInURL(),
@@ -46,7 +40,7 @@ export class Authorization {
         this.tabs.on<TabUpdatedMessage>('updated', this.onUpdate);
         this.tabs.on<TabRemovedMessage>('removed', this.onRemoved);
 
-        const completeStatus = await this._status
+        const completeStatus = await this.status
             .pipe(first(value => ['idle', 'error'].includes(value)))
             .toPromise();
 
@@ -67,7 +61,7 @@ export class Authorization {
     }
 
     onUpdate = async (data: TabUpdatedMessageData) => {
-        if (this._status.value !== 'waiting-code') {
+        if (this.status.value !== 'waiting-code') {
             return;
         }
 
@@ -78,7 +72,7 @@ export class Authorization {
                 return;
             }
 
-            this._status.next('exchanging-code');
+            this.status.next('exchanging-code');
 
             try {
                 const token = await this.oauth.exchangeCode(parseUrlResult.code);
@@ -88,18 +82,18 @@ export class Authorization {
                     token.expires_in,
                     token.created_at
                 ));
-                this._status.next('idle');
+                this.status.next('idle');
             } catch (error) {
                 // TODO: log error
-                this._status.next('error');
+                this.status.next('error');
             }
         }
     };
 
     onRemoved = async (data: TabRemovedMessageData) => {
         if (this.authorizationTabId === data.id) {
-            if (this._status.value === 'waiting-code') {
-                this._status.next('error');
+            if (this.status.value === 'waiting-code') {
+                this.status.next('error');
             }
         }
     };
