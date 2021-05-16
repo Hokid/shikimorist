@@ -39,3 +39,32 @@
  - [http://online.anilibria.life](http://online.anilibria.life)
  - [https://akari-anime.com](https://akari-anime.com)
  - [https://anime.anidub.life](https://anime.anidub.life)
+
+# Разработка
+
+### Установка
+
+```bash
+$ npm i
+```
+
+### Сборка
+
+Дев
+```bash
+$ npm run build-dev
+```
+
+Прод
+```bash
+$ npm run build
+```
+
+### Как добавить поддержку ресурса(парсер)
+
+Этот способ не предполагает знаний всей кодовой базы расширения. Добавление парсера очень простая процедура.
+
+1. Напиши новый парсер `src/core/parser/collection/`. См. примеры других парсеров.
+2. Добавь новый парсер в список `src/core/parser/index.ts`
+3. Напиши тесты `src/core/parser/index.test.ts`
+4. Создай Pull Request
