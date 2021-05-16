@@ -36,3 +36,6 @@
  - [https://animebest.org](https://animebest.org)
  - [https://online.animedia.tv](https://online.animedia.tv)
  - [https://animevost.org](https://animevost.org)
+ - [http://online.anilibria.life](http://online.anilibria.life)
+ - [https://akari-anime.com](https://akari-anime.com)
+ - [https://anime.anidub.life](https://anime.anidub.life)
