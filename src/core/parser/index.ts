@@ -5,6 +5,9 @@ import {AnimestarsParser} from './collection/animestars';
 import {AnimebestParser} from './collection/animebest';
 import {OnlineAnimediaParser} from './collection/online_animedia';
 import {AnimevostParser} from './collection/animevost';
+import {OnlineAnilibriaParser} from './collection/online_anilibria';
+import {AkariAnimeParser} from './collection/akari-anime';
+import {AnimeAnidubLifeParser} from './collection/anime_anidub_life';
 
 export const parsers: IParser[] = [
     new AnimeGoParser(),
@@ -13,6 +16,9 @@ export const parsers: IParser[] = [
     new AnimebestParser(),
     new OnlineAnimediaParser(),
     new AnimevostParser(),
+    new OnlineAnilibriaParser(),
+    new AkariAnimeParser(),
+    new AnimeAnidubLifeParser()
 ];
 
 export function getName(host: string, path: string, document: Document): null | string {

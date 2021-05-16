@@ -61,5 +61,47 @@ describe('parsers', function() {
         const name = getName('animevost.org', '/tip/tv/2449-shi-huang-zhi-shen.html', dom.window.document);
         expect(name).toBe('Shi Huang Zhi Shen');
     });
+
+    test('http://online.anilibria.life', async function() {
+        const content = await getContent(page, 'http://online.anilibria.life/online/vajolet-jevergarden-film-2020-1080-hd/7-1-0-882');
+        const dom = new JSDOM(content);
+        const name = getName('online.anilibria.life', '/online/vajolet-jevergarden-film-2020-1080-hd/7-1-0-882', dom.window.document);
+        expect(name).toBe('Violet Evergarden Movie');
+    });
+
+    test('https://akari-anime.com', async function() {
+        const content = await getContent(page, 'https://akari-anime.com/movie/vosemdesyat-shest-86/');
+        const dom = new JSDOM(content);
+        const name = getName('akari-anime.com', '/movie/vosemdesyat-shest-86/', dom.window.document);
+        expect(name).toBe('86');
+    });
+
+    test('https://anime.anidub.life', async function() {
+        const content = await getContent(page, 'https://anime.anidub.life/anime_movie/11447-da-net-ili-navernoe-yes-ka-no-ka-hanbun-ka.html');
+        const dom = new JSDOM(content);
+        const name = getName('anime.anidub.life', '/anime_movie/11447-da-net-ili-navernoe-yes-ka-no-ka-hanbun-ka.html', dom.window.document);
+        expect(name).toBe('Yes ka No ka Hanbun ka');
+    });
+
+    test('https://anime.anidub.life', async function() {
+        const content = await getContent(page, 'https://anime.anidub.life/anime/full/8944-net-igry-net-zhizni-no-game-no-life-01-iz-12.html');
+        const dom = new JSDOM(content);
+        const name = getName('anime.anidub.life', '/anime/full/8944-net-igry-net-zhizni-no-game-no-life-01-iz-12.html', dom.window.document);
+        expect(name).toBe('No Game No Life');
+    });
+
+    test('https://anime.anidub.life', async function() {
+        const content = await getContent(page, 'https://anime.anidub.life/anime_ova/11446-okoldovannyj-nozomi-nozomi-witches-01-iz-03.html');
+        const dom = new JSDOM(content);
+        const name = getName('anime.anidub.life', '/anime_ova/11446-okoldovannyj-nozomi-nozomi-witches-01-iz-03.html', dom.window.document);
+        expect(name).toBe('Nozomi Witches');
+    });
+
+    test('https://anime.anidub.life', async function() {
+        const content = await getContent(page, 'https://anime.anidub.life/anime/anime_ongoing/11135-van-pis-one-piece-s-914-po-hhh.html');
+        const dom = new JSDOM(content);
+        const name = getName('anime.anidub.life', '/anime/anime_ongoing/11135-van-pis-one-piece-s-914-po-hhh.html', dom.window.document);
+        expect(name).toBe('One Piece');
+    });
 })
 
