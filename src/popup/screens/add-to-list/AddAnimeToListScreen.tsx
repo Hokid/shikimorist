@@ -11,6 +11,7 @@ import {ScreenState} from '../../states/Screen';
 import {AnimeState} from '../../states/Anime';
 import {MenuToggler} from '../menu/Toggler';
 import {Screens} from '../../states/types';
+import {AnimeLinkableTitle} from '../../elements/anime-linkable-title/AnimeLikableTitle';
 
 
 type Props = {
@@ -71,7 +72,14 @@ export function View(props: Props) {
                             padding: '12px 20px',
                             margin: 0,
                         }}
-                    >{name}</p>
+                    >
+                        <AnimeLinkableTitle
+                            russianName={props.animeState!.anime.russian}
+                            name={props.animeState!.anime.name}
+                            shikimoriHost={props.animeState!.shikimoriHost}
+                            path={props.animeState!.anime.url}
+                        />
+                    </p>
                     <Button onClick={onOpenList}>Добавить в список</Button>
                     <div style={{textAlign: 'center', marginTop: 3}}>
                         <Button
