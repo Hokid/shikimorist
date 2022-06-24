@@ -157,7 +157,7 @@
     "@types/jsdom": "16.2.1",
     "@types/lodash": "4.14.144",
     "@types/puppeteer": "2.0.1",
-    "jsdom": "16.2.2",
+    "jsdom": "16.5.0",
     "puppeteer": "3.0.1"
   }
 }
