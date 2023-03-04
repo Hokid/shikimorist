@@ -103,5 +103,19 @@ describe('parsers', function() {
         const name = getName('anime.anidub.life', '/anime/anime_ongoing/11135-van-pis-one-piece-s-914-po-hhh.html', dom.window.document);
         expect(name).toBe('One Piece');
     });
+
+    test('https://anilibria.tv', async function() {
+        const content = await getContent(page, 'https://www.anilibria.tv/release/spy-kyoushitsu.html');
+        const dom = new JSDOM(content);
+        const name = getName('anilibria.tv', '/release/spy-kyoushitsu.html', dom.window.document);
+        expect(name).toBe('Spy Kyoushitsu');
+    });
+
+    test('https://anilibria.tv', async function() {
+        const content = await getContent(page, 'https://www.anilibria.tv/release/hyouken-no-majutsushi-ga-sekai-wo-suberu.html');
+        const dom = new JSDOM(content);
+        const name = getName('anilibria.tv', '/release/hyouken-no-majutsushi-ga-sekai-wo-suberu.html', dom.window.document);
+        expect(name).toBe('Hyouken no Majutsushi ga Sekai wo Suberu');
+    });
 })
 
