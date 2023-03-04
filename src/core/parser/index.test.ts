@@ -103,5 +103,19 @@ describe('parsers', function() {
         const name = getName('anime.anidub.life', '/anime/anime_ongoing/11135-van-pis-one-piece-s-914-po-hhh.html', dom.window.document);
         expect(name).toBe('One Piece');
     });
+    
+    test('https://www.anilibria.tv/',async function(){
+        const content = await getContent(page,'https://anilibria.tv/release/fate-stay-night-unlimited-blade-works-sudba-noch-skhvatki.html')
+        const dom = new JSDOM(content);
+        const name = getName('anilibria.tv','/release/fate-stay-night-unlimited-blade-works-sudba-noch-skhvatki.html',dowm.window.document);
+        expect(name).toBe('Fate/stay night: Unlimited Blade Works')
+		});
+    
+    test('https://www.anilibria.tv/',async function(){
+        const content = await getContent(page,'https://anilibria.tv/release/spy-kyoushitsu.html')
+        const dom = new JSDOM(content);
+        const name = getName('anilibria.tv','/release/spy-kyoushitsu.html',dowm.window.document);
+        expect(name).toBe('Spy Kyoushitsu')
+		});
 })
 
