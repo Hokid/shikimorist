@@ -11,6 +11,7 @@ export class PageClient {
         return new Promise((resolve, reject) => {
             chrome.tabs.query({active: true, currentWindow: true}, tabs => {
                 if (tabs[0]) {
+                    console.debug('Request page data. TabId=%s', tabs[0].id);
                     chrome.tabs.sendMessage(tabs[0].id as number, {
                         event: 'request-page-data'
                     } as RequestPageData, resolve);

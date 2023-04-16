@@ -11,7 +11,7 @@ export class ApiAuthProvider extends AbstractAuthProvider {
         this.auth = auth;
     }
 
-    async injectAuthData(request: AxiosRequestConfig): Promise<AxiosRequestConfig> {
+    async injectAuthData<T extends AxiosRequestConfig>(request: T): Promise<T> {
         let token = await this.auth.getToken();
 
         if (token && token.isExpired()) {
@@ -20,6 +20,7 @@ export class ApiAuthProvider extends AbstractAuthProvider {
         }
 
         if (token) {
+            request.headers = request.headers || {};
             request.headers['Authorization'] = 'Bearer ' + token.accessToken;
         }
 

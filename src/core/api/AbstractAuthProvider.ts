@@ -1,7 +1,7 @@
-import {AxiosRequestConfig} from "axios";
+import { AxiosRequestConfig } from "axios";
 
 export abstract class AbstractAuthProvider {
-    abstract injectAuthData(request: AxiosRequestConfig): Promise<AxiosRequestConfig> | AxiosRequestConfig;
+    abstract injectAuthData<T extends AxiosRequestConfig>(request: T): Promise<T> | T;
 
     abstract onFail(): void;
 }

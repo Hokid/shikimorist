@@ -4,7 +4,7 @@ import {Store} from '../store';
 import {IAnime} from '../api/animes';
 import {getName} from '../parser';
 
-const ensurePageLoaded = new Promise((resolve, reject) => {
+const ensurePageLoaded = new Promise<void>((resolve, reject) => {
     const listener = () => {
         resolve();
     };

@@ -3,6 +3,7 @@ import {ApiResponse, IApiClientFactory} from './types';
 import {AbstractAuthProvider} from './AbstractAuthProvider';
 import {decorate, inject, injectable, optional} from 'inversify';
 import {TYPES} from '../../iocTypes';
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
 @injectable()
 export class ApiClientFactory implements IApiClientFactory {
@@ -15,7 +16,8 @@ export class ApiClientFactory implements IApiClientFactory {
 
     createClient(): AxiosInstance {
         const client = axios.create({
-            baseURL: this.baseUrl
+            baseURL: this.baseUrl,
+            adapter: fetchAdapter
         });
 
         client.interceptors.response.use(

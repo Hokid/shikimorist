@@ -3,13 +3,10 @@
   "short_name": "Shikimorist",
   "version": "1.5.6",
   "description": "Быстрый доступ к списку аниме на shikimori. Отмечай серии, ставь оценку, добавляй аниме не выходя со страницы онлайн просмотра",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "author": "Kirill Khoroshilov <mr.hokid@gmail.com>",
   "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": true
+    "service_worker": "background.js"
   },
   "icons": {
     "16": "icons/16.png",
@@ -20,11 +17,21 @@
     "tabs",
     "storage",
     "activeTab",
-    "*://shikimori.one/*",
-    "webRequestBlocking",
-    "webRequest"
+    "declarativeNetRequest",
+    "scripting"
   ],
-  "browser_action": {
+  "host_permissions": [
+    "https://shikimori.me/api/*",
+    "https://shikimori.me/oauth/*"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "update_user_agent",
+      "enabled": true,
+      "path": "update_user_agent.json"
+    }]
+  },
+  "action": {
     "default_popup": "popup.html"
   }
 }

@@ -26,7 +26,7 @@ auth.on('updateStatus', (status) => {
     chrome.runtime.sendMessage({
         event: 'background-auth-update-status',
         data: status
-    });
+    }).catch(err => console.error('Send message error: %O', err));
 });
 
 chrome.runtime.onMessage.addListener((message: Message, _, response) => {
@@ -57,20 +57,3 @@ chrome.runtime.onMessage.addListener((message: Message, _, response) => {
         return true;
     }
 });
-
-chrome.webRequest.onBeforeSendHeaders.addListener(
-    function (details) {
-        if (details.requestHeaders) {
-            for (var i = 0; i < details.requestHeaders.length; ++i) {
-                if (details.requestHeaders[i].name === 'User-Agent') {
-                    details.requestHeaders[i].value = 'shikimorist';
-                    break;
-                }
-            }
-        }
-
-        return {requestHeaders: details.requestHeaders};
-    },
-    {urls: ["*://shikimori.one/*"], types: ["main_frame", "sub_frame"]},
-    ["blocking", "requestHeaders"]
-);

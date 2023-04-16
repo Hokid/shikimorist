@@ -100,7 +100,7 @@ export class AuthorizationApi extends EventEmitter implements IAuthorization {
             currentTabId,
             signInPromise
         } = this;
-
+        console.debug('Handle tab update. TabId=%s, URL=%s', tabId, info.url);
         if (tabId === currentTabId && info.url) {
             if (signInPromise && !signInPromise.isSettled) {
                 if (this.isUrlWithCode(info.url)) {
@@ -109,13 +109,13 @@ export class AuthorizationApi extends EventEmitter implements IAuthorization {
 
                         try {
                             const code = this.getCodeFromUrl(info.url);
-
+                            console.debug('Got auth code');
                             await this.exchangeCode(code);
-
+                            console.debug('Auth code is exchanged');
                             this.emit('updateStatus', true);
-
                             signInPromise.resolve();
                         } catch (error) {
+                            console.error('AuthError: ', error);
                             signInPromise.reject(error);
                         }
 
@@ -141,7 +141,7 @@ export class AuthorizationApi extends EventEmitter implements IAuthorization {
             currentTabId,
             signInPromise
         } = this;
-
+        console.debug('Handle removed tab. TabId=%s', tabId);
         if (tabId === currentTabId) {
             if (signInPromise) {
                 this.signInPromise = null;
