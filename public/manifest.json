@@ -1,8 +1,8 @@
 {
   "name": "Shikimorist",
   "short_name": "Shikimorist",
-  "version": "1.6.3",
-  "description": "Быстрый доступ к списку аниме на Shikimori с поддержкой 10+ порталов онлайн просмотра. Отмечай серии, ставь оценку и добавляй аниме, не покидая сайт.",
+  "version": "1.6.4",
+  "description": "Быстрый доступ к твоему списку аниме на Shikimori с поддержкой более 10 порталов онлайн просмотра.",
   "manifest_version": 3,
   "author": "Kirill Khoroshilov <mr.hokid@gmail.com>",
   "background": {
