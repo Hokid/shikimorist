@@ -92,6 +92,7 @@
     "test:online_anilibria": "node scripts/test.js online_anilibria",
     "test:online_animedia": "node scripts/test.js online_animedia",
     "test:yummyanime": "node scripts/test.js yummyanime",
+    "test:anilibria": "node scripts/test.js src/core/parser/collection/anilibria.test.ts",
     "zip": "rm -f build.zip && cd build/ && zip -r ../build.zip * && cd -",
     "pub": "npm run build && npm run zip"
   },
