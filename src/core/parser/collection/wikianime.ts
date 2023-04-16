@@ -1,6 +1,12 @@
 import {IParser} from '../types';
 
 export class WikianimeParser implements IParser {
+    hosts = [
+        {
+            url: 'https://wikianime.tv',
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
         return host.endsWith('wikianime.tv') && /^\/anime\/.+/.test(path);
     }

@@ -85,7 +85,7 @@ export function View(props: Props) {
                         <Button
                             theme="link"
                             onClick={() => props.screenState!.push(Screens.SEARCHING)}
-                        >Найти другое</Button>
+                        >Ручной поиск</Button>
                     </div>
                 </div>
             </div>

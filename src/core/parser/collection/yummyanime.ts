@@ -1,6 +1,15 @@
 import {IParser} from '../types';
 
 export class YummyanimeParser implements IParser {
+    hosts = [
+        {
+            url: 'https://yummyanime.tv',
+        },
+        {
+            url: 'https://yummyanime.org',
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
         return /^yummyanime\.(tv|org)/.test(host) && /^\/[0-9]+-.+/.test(path);
     }

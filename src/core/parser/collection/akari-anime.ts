@@ -1,6 +1,12 @@
 import {IParser} from '../types';
 
 export class AkariAnimeParser implements IParser {
+    hosts = [
+        {
+            url: 'https://akari-anime.com'
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
         return host === 'akari-anime.com' && /^\/movie\/.+/.test(path);
     }

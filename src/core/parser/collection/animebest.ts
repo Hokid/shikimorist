@@ -1,6 +1,12 @@
 import {IParser} from '../types';
 
 export class AnimebestParser implements IParser {
+    hosts = [
+        {
+            url: 'https://anime1.animebesst.org',
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
         // *.animebesst.org
         return /[a-zA-Z0-9]+\.animebesst\.org$/.test(host) && /^\/anime(-ab)?\/.+/.test(path);

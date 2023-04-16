@@ -1,6 +1,16 @@
 import {IParser} from '../types';
 
 export class AnimevostParser implements IParser {
+    hosts = [
+        {
+            url: 'https://animevost.org',
+            vpn: true,
+        },
+        {
+            url: 'https://v2.vost.pw',
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
         return (host === 'v2.vost.pw' || host === 'animevost.org') && /^\/tip\/tv\/.+/.test(path);
     }

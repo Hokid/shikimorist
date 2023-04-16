@@ -1,6 +1,12 @@
 import {IParser} from '../types';
 
 export class OnlineAnimediaParser implements IParser {
+    hosts = [
+        {
+            url: 'https://online.animedia.tv',
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
         return host === 'online.animedia.tv' && /^\/anime\/.+/.test(path);
     }

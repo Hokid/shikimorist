@@ -45,7 +45,7 @@ export function View(props: Props) {
                     <div
                         style={{
                             textAlign: 'center',
-                            padding: '12px 24px',
+                            padding: '12px 24px 0 24px',
                             flexGrow: 1
                         }}
                     >
@@ -72,6 +72,18 @@ export function View(props: Props) {
                                 >Выход</Button>
                             )
                         }
+                      {
+                        props.authState!.isAuthorized && (
+                          <Button
+                            onClick={() => props.screenState!.push(Screens.SUPPORTED_RESOURCES)}
+                            style={{
+                              width: '100%',
+                              marginTop: 12,
+                              background: '#161616'
+                            }}
+                          >Поддерживаемые сайты</Button>
+                        )
+                      }
                     </div>
                     <div
                         style={{

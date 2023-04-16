@@ -1,6 +1,13 @@
 import {IParser} from '../types';
 
 export class AnilibriaParser implements IParser {
+    hosts = [
+        {
+            url: 'https://www.anilibria.tv',
+            vpn: true
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
         return host.endsWith('anilibria.tv') && /^\/release\/.+/.test(path);
     }

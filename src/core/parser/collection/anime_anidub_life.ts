@@ -3,6 +3,12 @@ import {IParser} from '../types';
 const EndRE = /[^\s]+ (из|по) [^\s]+(.+)?/;
 
 export class AnimeAnidubLifeParser implements IParser {
+    hosts = [
+        {
+            url: 'https://anidub.life',
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
         return host === 'anidub.life' && /^\/anime(_movie|_ova|_ongoing|_tv|_ona)?|full\/.+/.test(path);
     }

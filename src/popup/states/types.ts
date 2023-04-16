@@ -37,5 +37,6 @@ export enum Screens {
     RATE_CONTROL,
     MENU,
     SEARCHING,
-    LOADER
+    LOADER,
+    SUPPORTED_RESOURCES
 }

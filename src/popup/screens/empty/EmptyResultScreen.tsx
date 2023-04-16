@@ -26,7 +26,7 @@ function View(props: Props) {
             <img src={background} height="130" alt="empty"/>
             <p
                 style={{
-                    fontSize: 16,
+                    fontSize: 12,
                     textTransform: 'uppercase',
                     fontWeight: 400,
                     color: '#a2a2a2',
@@ -34,14 +34,21 @@ function View(props: Props) {
                     marginBottom: 3
                 }}
             >
-                Не найдено
+                Похоже, что сайт не поддерживается, или вы не на странице с аниме.
             </p>
             <div style={{textAlign: 'center'}}>
                 <Button
                     theme="link"
                     onClick={() => props.screenState!.push(Screens.SEARCHING)}
-                >Найти</Button>
+                >Поиск аниме</Button>
             </div>
+            <div style={{textAlign: 'center'}}>
+              <Button
+                theme="link"
+                onClick={() => props.screenState!.push(Screens.SUPPORTED_RESOURCES)}
+              >Список сайтов</Button>
+            </div>
+
         </div>
     );
 }

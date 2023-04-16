@@ -1,8 +1,14 @@
 import {IParser} from '../types';
 
 export class OnlineAnilibriaParser implements IParser {
+    hosts = [
+        {
+            url: 'https://anilibria.life',
+        }
+    ];
+
     checkUrl(host: string, path: string): boolean {
-        return host === 'online.anilibria.life' && /^\/online\/.+/.test(path);
+        return host === 'anilibria.life' && /^\/online\/.+/.test(path);
     }
 
     parse(document: Document): string | null {

@@ -11,6 +11,7 @@ import {SearchingScreen} from './screens/searching/SearchingScreen';
 import {MenuScreen} from './screens/menu/MenuScreen';
 import {Screens} from './states/types';
 import {VoidScreen} from './screens/void/Void';
+import { SupportedResources } from './screens/supported-resources/SupportedResources';
 
 
 type Props = {
@@ -42,6 +43,8 @@ export class ScreensView extends Component<Props> {
                 return <SearchingScreen/>;
             case Screens.LOADER:
                 return <LoaderScreen/>;
+            case Screens.SUPPORTED_RESOURCES:
+                return <SupportedResources/>;
             default:
                 return <VoidScreen/>;
         }
