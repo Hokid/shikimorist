@@ -6,15 +6,27 @@ export class WikianimeParser implements IParser {
     }
 
     parse(document: Document): string | null {
-        const namesStr = document.querySelector('meta[property="og:title"]');
+        const ogTitle = document.querySelector('meta[property="og:title"]');
 
-        if (namesStr) {
-            const content = namesStr.getAttribute('content');
+        if (ogTitle) {
+            const content = ogTitle.getAttribute('content');
             if (content) {
                 const names = content.split('|');
                 const latinName = names[1];
                 if (latinName) {
                     return latinName.trim();
+                }
+            }
+        }
+
+        const ogDescription = document.querySelector('meta[property="og:description"]');
+
+        if (ogDescription) {
+            const content = ogDescription.getAttribute('content');
+            if (content) {
+                const name = content.match(/\(([^,]+),[^)]+\)/);
+                if (name) {
+                    return name[1].trim();
                 }
             }
         }
