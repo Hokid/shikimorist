@@ -6,8 +6,8 @@ export class AnimestarsParser implements IParser {
     }
 
     parse(document: Document): string | null {
-        const rusName = document.querySelector('.btoom-title > h1');
-        const alternative = document.querySelector('.short-t-or > h3');
+        const rusName = document.querySelector('[itemprop="name"]');
+        const alternative = document.querySelector('.pmovie__original-title');
 
         let latName: string | undefined;
 

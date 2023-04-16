@@ -2,7 +2,7 @@ import {IParser} from '../types';
 
 export class AnimevostParser implements IParser {
     checkUrl(host: string, path: string): boolean {
-        return host === 'animevost.org' && /^\/tip\/tv\/.+/.test(path);
+        return (host === 'v2.vost.pw' || host === 'animevost.org') && /^\/tip\/tv\/.+/.test(path);
     }
 
     parse(document: Document): string | null {

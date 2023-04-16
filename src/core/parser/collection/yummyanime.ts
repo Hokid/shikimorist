@@ -2,23 +2,31 @@ import {IParser} from '../types';
 
 export class YummyanimeParser implements IParser {
     checkUrl(host: string, path: string): boolean {
-        return host === 'yummyanime.club' && /^\/catalog\/item\/.+/.test(path);
+        return /^yummyanime\.(tv|org)/.test(host) && /^\/[0-9]+-.+/.test(path);
     }
 
-    parse(document: Document): string | null {
-        const titleName = document.querySelector('.anime-page > h1');
-        const namesItems = document.querySelectorAll('.alt-names-list > li');
-        const names = Array.from(namesItems).map(_ => _.innerHTML);
-        const inLatin = names.filter(_ => !/а-яёА-ЯЁ/.test(_));
+    parse(document: Document, host: string): string | null {
+        let name: string | null = null;
 
-        return (
-            inLatin.length
-                ? inLatin[0]
-                : names.length
-                    ? names[0]
-                    : titleName
-                        ? titleName.innerHTML
-                        : null
-        );
+        if (host.endsWith('.tv')) {
+            const nameEl = document.querySelector('[itemprop="name"]');
+            const alNameEl = document.querySelector('[itemprop="alternativeHeadline"]');
+            if (alNameEl) {
+                name = alNameEl.textContent;
+            } else if (nameEl) {
+                name = nameEl.textContent;
+            }
+        } else if (host.endsWith('.org')) {
+            const nameEl = document.querySelector('.anime__title > h1');
+            const alNameEl = document.querySelector('.pmovie__original-title');
+
+            if (alNameEl) {
+                name = alNameEl.textContent;
+            } else if (nameEl) {
+                name = nameEl.textContent;
+            }
+        }
+
+        return name;
     }
 }

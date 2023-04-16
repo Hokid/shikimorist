@@ -24,7 +24,7 @@ export const parsers: IParser[] = [
 export function getName(host: string, path: string, document: Document): null | string {
     for (const parser of parsers) {
         if (parser.checkUrl(host, path)) {
-            return parser.parse(document);
+            return parser.parse(document, host, path);
         }
     }
     return null;

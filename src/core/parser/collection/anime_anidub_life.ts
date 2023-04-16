@@ -1,10 +1,10 @@
 import {IParser} from '../types';
 
-const EndRE = /[^\s]+ (из|по) [^\s]+/;
+const EndRE = /[^\s]+ (из|по) [^\s]+(.+)?/;
 
 export class AnimeAnidubLifeParser implements IParser {
     checkUrl(host: string, path: string): boolean {
-        return host === 'anime.anidub.life' && /^\/anime(_movie|_ova)?\/.+/.test(path);
+        return host === 'anidub.life' && /^\/anime(_movie|_ova|_ongoing|_tv|_ona)?|full\/.+/.test(path);
     }
 
     parse(document: Document): string | null {
