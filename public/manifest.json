@@ -1,7 +1,7 @@
 {
   "name": "Shikimorist",
   "short_name": "Shikimorist",
-  "version": "1.5.6",
+  "version": "1.6.1",
   "description": "Быстрый доступ к списку аниме на shikimori. Отмечай серии, ставь оценку, добавляй аниме не выходя со страницы онлайн просмотра",
   "manifest_version": 3,
   "author": "Kirill Khoroshilov <mr.hokid@gmail.com>",
