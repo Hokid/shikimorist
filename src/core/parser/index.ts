@@ -10,6 +10,7 @@ import {AkariAnimeParser} from './collection/akari-anime';
 import {AnimeAnidubLifeParser} from './collection/anime_anidub_life';
 import { AnilibriaParser } from './collection/anilibria';
 import { WikianimeParser } from './collection/wikianime';
+import { RezkaAgParser } from './collection/rezka_ag';
 
 export const parsers: IParser[] = [
     new AnimeGoParser(),
@@ -22,7 +23,8 @@ export const parsers: IParser[] = [
     new AkariAnimeParser(),
     new AnimeAnidubLifeParser(),
     new AnilibriaParser(),
-    new WikianimeParser()
+    new WikianimeParser(),
+    new RezkaAgParser()
 ];
 
 export function getName(host: string, path: string, document: Document): null | string {
