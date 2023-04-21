@@ -17,7 +17,7 @@
     "tabs",
     "storage",
     "activeTab",
-    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
     "scripting"
   ],
   "host_permissions": [

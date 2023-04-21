@@ -4,21 +4,45 @@
     "priority": 1,
     "action": {
       "type": "modifyHeaders",
-      "responseHeaders": [
-        { "header": "User-Agent", "operation": "set", "value": "shikimorist" }
+      "requestHeaders": [
+        {
+          "header": "User-Agent",
+          "operation": "set",
+          "value": "shikimorist"
+        }
       ]
     },
-    "condition": { "urlFilter": "https://shikimori.me/api/*", "resourceTypes": ["xmlhttprequest"] }
+    "condition": {
+      "initiatorDomains": [
+        "ldpjmfifbppiopmahkfajeghaapgnbda"
+      ],
+      "urlFilter": "https://shikimori.me/api/*",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
   },
   {
     "id": 2,
     "priority": 1,
     "action": {
       "type": "modifyHeaders",
-      "responseHeaders": [
-        { "header": "User-Agent", "operation": "set", "value": "shikimorist" }
+      "requestHeaders": [
+        {
+          "header": "User-Agent",
+          "operation": "set",
+          "value": "shikimorist"
+        }
       ]
     },
-    "condition": { "urlFilter": "https://shikimori.me/oauth/*", "resourceTypes": ["xmlhttprequest", "main_frame"] }
+    "condition": {
+      "initiatorDomains": [
+        "ldpjmfifbppiopmahkfajeghaapgnbda"
+      ],
+      "urlFilter": "https://shikimori.me/oauth/*",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
   }
 ]
