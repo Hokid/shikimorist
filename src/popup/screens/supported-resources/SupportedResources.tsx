@@ -19,7 +19,7 @@ export function View(props: Props) {
       })));
       return out;
     }, [] as { url: string, title: string }[]);
-    return result.concat(result);
+    return result;
   }, []);
   return (<WithSideLayout
     side="left"
