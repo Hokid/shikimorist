@@ -12,6 +12,7 @@ import {AnimeState} from '../../states/Anime';
 import {MenuToggler} from '../menu/Toggler';
 import {Screens} from '../../states/types';
 import {AnimeLinkableTitle} from '../../elements/anime-linkable-title/AnimeLikableTitle';
+import { Attach } from '../../elements/attach/Attach';
 
 
 type Props = {
@@ -60,7 +61,7 @@ export function View(props: Props) {
             <MenuToggler/>
             <div
                 style={{
-                    height: '100%',
+                    height: 'calc(100% - 21px)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
@@ -88,6 +89,17 @@ export function View(props: Props) {
                         >Ручной поиск</Button>
                     </div>
                 </div>
+            </div>
+            <div
+                style={{
+                    padding: '0 12px 8px 8px',
+                    color: '#282828'
+                }}
+            >
+                <Attach
+                    value={props.animeState!.isAttached}
+                    onChange={(v) => props.animeState!.setAttached(v)}
+                />
             </div>
         </div>
     );

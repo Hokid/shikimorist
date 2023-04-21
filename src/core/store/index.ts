@@ -56,9 +56,13 @@ export class Store {
 
     async setAnimeForURL(url: string, anime: {id: number} | undefined) {
         return new Promise<void>((resolve, reject) => {
-            chrome.storage.sync.set({
-                [url]: anime
-            }, resolve);
+            if (anime) {
+                chrome.storage.sync.set({
+                    [url]: anime
+                }, resolve);
+            } else {
+                chrome.storage.sync.remove([url], resolve);
+            }
         });
     }
 

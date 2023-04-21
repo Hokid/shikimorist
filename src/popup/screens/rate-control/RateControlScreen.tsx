@@ -13,6 +13,7 @@ import {inject, observer} from 'mobx-react';
 import {MainState} from '../../states/Main';
 import {AnimeState} from '../../states/Anime';
 import {MenuToggler} from '../menu/Toggler';
+import { Attach } from '../../elements/attach/Attach';
 
 type Props = {
     animeState?: AnimeState;
@@ -99,7 +100,7 @@ export function View(props: Props) {
                     style={{
                         flexGrow: 0,
                         textAlign: 'center',
-                        padding: '12px 12px'
+                        padding: '12px 12px 5px 12px'
                     }}
                 >
                     <Rate
@@ -107,6 +108,18 @@ export function View(props: Props) {
                         onChange={s => props.animeState!.setRateScore(s)}
                     />
                 </div>
+              <div
+                style={{
+                  flexGrow: 0,
+                  padding: '0 12px 8px 8px',
+                  color: '#282828'
+                }}
+              >
+                <Attach
+                  value={props.animeState!.isAttached}
+                  onChange={(v) => props.animeState!.setAttached(v)}
+                />
+              </div>
             </div>
         </WithSideLayout>
     );

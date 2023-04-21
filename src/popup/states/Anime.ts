@@ -1,5 +1,5 @@
 import {IAuthorizationState, IErrorState, ILoaderState, IScreenState, Screens} from './types';
-import {observable} from 'mobx';
+import { observable, runInAction } from 'mobx';
 import {IRate, RateStatus} from '../../core/api/usersRate';
 import {IAnime} from '../../core/api/animes';
 import {AnimeRate} from '../../core/anime-rate/AnimeRate';
@@ -17,6 +17,7 @@ export class AnimeState extends Lockable {
     @observable animeLookupName?: string | undefined;
     @observable anime?: IAnime | undefined;
     @observable isRateUpdating: boolean = false;
+    @observable isAttached: boolean = false;
     @observable rate?: IRate | undefined;
 
     constructor(
@@ -37,6 +38,7 @@ export class AnimeState extends Lockable {
                     this.anime = undefined;
                     this.isRateUpdating = false;
                     this.rate = undefined;
+                    this.isAttached = false;
                 });
             }
 
@@ -70,8 +72,14 @@ export class AnimeState extends Lockable {
                 anime = await this.animes.getById(id);
                 if (!anime) {
                     await this.pageClient.setAnime();
+                    runInAction(() => {
+                        this.isAttached = false;
+                    });
                     return this._lookup();
                 }
+                runInAction(() => {
+                    this.isAttached = true;
+                });
             } else if (pageData.type === 'name') {
                 lookupName = pageData.value;
                 const limit = JAPANESE_CHARS_RE.test(lookupName)
@@ -97,13 +105,25 @@ export class AnimeState extends Lockable {
         return {anime, lookupName};
     }
 
+    async setAttached(value: boolean) {
+        if (!this.anime) {
+            return;
+        }
+        try {
+            await this.pageClient.setAnime(value ? this.anime.id : undefined);
+            runInAction(() => {
+                this.isAttached = value;
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     async setAnime(anime?: IAnime | undefined, animeLookupName?: string) {
         const catchError = this.stateMediator.getScopedErrorCatcher();
         const stopLoader = this.stateMediator.startLoader();
 
         try {
-            await this.pageClient.setAnime(anime);
-
             const rate = anime
                 ? await this.animeRates.getByAnimeId(anime.id)
                 : null;

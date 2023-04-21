@@ -21,6 +21,7 @@ export class PageServer {
 
     constructor() {
         chrome.runtime.onMessage.addListener((message: Message, _, response) => {
+            console.debug('On request. Message=%o', message);
             if (message.event === 'request-page-data') {
                 this.onRequest(response);
                 return true;
