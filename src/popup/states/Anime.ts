@@ -7,6 +7,9 @@ import {PageClient} from '../../core/page/PageClient';
 import {Animes} from '../../core/animes/Animes';
 import {AnimeRates} from '../../core/anime-rate/AnimeRates';
 import {Lockable} from './base/Lockable';
+import {closest} from 'fastest-levenshtein';
+
+const JAPANESE_CHARS_RE = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]|[\u2605-\u2606]|[\u2190-\u2195]|\u203B/g
 
 export class AnimeState extends Lockable {
     isLock: boolean = false;
@@ -71,12 +74,22 @@ export class AnimeState extends Lockable {
                 }
             } else if (pageData.type === 'name') {
                 lookupName = pageData.value;
+                const limit = JAPANESE_CHARS_RE.test(lookupName)
+                    ? 1
+                    : 10;
 
                 const searchResult = await this.animes
-                    .search(pageData.value, 1);
+                    .search(pageData.value, limit);
 
-                if (searchResult.length > 0) {
+                if (searchResult.length === 1) {
                     anime = searchResult[0];
+                } else if (searchResult.length !== 0) {
+                    const closestAnime = closest(lookupName, searchResult.map(a => {
+                        const name = new String(a.name);
+                        (name as any).animeRef = a;
+                        return name as string;
+                    }))
+                    anime = (closestAnime as any).animeRef as IAnime;
                 }
             }
         }
