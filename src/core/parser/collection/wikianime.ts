@@ -20,7 +20,7 @@ export class WikianimeParser implements IParser {
                 const names = content.split('|');
                 const latinName = names[1];
                 if (latinName) {
-                    return latinName.trim();
+                    return this.clear(latinName.trim());
                 }
             }
         }
@@ -30,13 +30,21 @@ export class WikianimeParser implements IParser {
         if (ogDescription) {
             const content = ogDescription.getAttribute('content');
             if (content) {
-                const name = content.match(/\(([^,]+),[^)]+\)/);
-                if (name) {
-                    return name[1].trim();
+                const result = content.match(/\(([^,]+),([^)]+)\)/);
+                if (result) {
+                    const [,name1, name2] = result;
+                    if (name2) {
+                        return this.clear(name2.trim());
+                    }
+                    return this.clear(name1.trim());
                 }
             }
         }
 
         return null;
+    }
+
+    private clear(value: string) {
+        return value.replace(/season|сезон/gi, '')
     }
 }
