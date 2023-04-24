@@ -8,9 +8,9 @@ import {AnimevostParser} from './collection/animevost';
 import {OnlineAnilibriaParser} from './collection/online_anilibria';
 import {AkariAnimeParser} from './collection/akari-anime';
 import {AnimeAnidubLifeParser} from './collection/anime_anidub_life';
-import { AnilibriaParser } from './collection/anilibria';
-import { WikianimeParser } from './collection/wikianime';
-import { RezkaAgParser } from './collection/rezka_ag';
+import {AnilibriaParser} from './collection/anilibria';
+import {WikianimeParser} from './collection/wikianime';
+import {RezkaAgParser} from './collection/rezka_ag';
 
 export const parsers: IParser[] = [
     new AnimeGoParser(),
