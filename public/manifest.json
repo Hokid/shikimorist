@@ -1,7 +1,7 @@
 {
   "name": "Shikimorist",
   "short_name": "Shikimorist",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Быстрый доступ к твоему списку аниме на Shikimori с поддержкой более 10 порталов онлайн просмотра.",
   "manifest_version": 3,
   "author": "Kirill Khoroshilov <mr.hokid@gmail.com>",
@@ -14,7 +14,6 @@
     "128": "icons/128.png"
   },
   "permissions": [
-    "tabs",
     "storage",
     "activeTab",
     "declarativeNetRequestWithHostAccess",
