@@ -10,6 +10,7 @@ import {Lockable} from './base/Lockable';
 import {closest} from 'fastest-levenshtein';
 
 const JAPANESE_CHARS_RE = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]|[\u2605-\u2606]|[\u2190-\u2195]|\u203B/g
+const RUS_CHARS_RE = /[a-яё]/i;
 
 export class AnimeState extends Lockable {
     isLock: boolean = false;
@@ -92,8 +93,12 @@ export class AnimeState extends Lockable {
                 if (searchResult.length === 1) {
                     anime = searchResult[0];
                 } else if (searchResult.length !== 0) {
+                    const nameField = RUS_CHARS_RE.test(lookupName)
+                        ? 'russian'
+                        : 'name';
+                    const fallback = 'name';
                     const closestAnime = closest(lookupName, searchResult.map(a => {
-                        const name = new String(a.name);
+                        const name = new String(a[nameField] || a[fallback]);
                         (name as any).animeRef = a;
                         return name as string;
                     }))
