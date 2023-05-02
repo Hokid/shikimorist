@@ -27,10 +27,11 @@ export const parsers: IParser[] = [
     new RezkaAgParser()
 ];
 
-export function getName(host: string, path: string, document: Document): null | string {
+export function getName(document: Document): null | string {
+    const {location} = document;
     for (const parser of parsers) {
-        if (parser.checkUrl(host, path)) {
-            return parser.parse(document, host, path);
+        if (parser.checkUrl(location)) {
+            return parser.parse(document);
         }
     }
     return null;

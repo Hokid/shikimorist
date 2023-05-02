@@ -22,9 +22,12 @@ describe('anilibria.tv', function() {
     });
 
     test('default', async function() {
-        const content = await getContent(page, 'https://www.anilibria.tv/release/edomae-elf.html');
-        const dom = new JSDOM(content);
-        const name = getName('www.anilibria.tv', '/release/edomae-elf.html', dom.window.document);
+        const url = 'https://www.anilibria.tv/release/edomae-elf.html';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Edomae Elf');
     });
 })

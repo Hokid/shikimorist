@@ -7,7 +7,8 @@ export class AnimestarsParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return host === 'animestars.org' && /^\/aniserials\/video\/[^/]+\/.+/.test(path);
     }
 

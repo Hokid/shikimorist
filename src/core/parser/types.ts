@@ -1,7 +1,7 @@
 export interface IParser {
     readonly hosts: {url: string, vpn?: boolean}[];
 
-    checkUrl(host: string, path: string): boolean;
+    checkUrl(location: Location): boolean;
 
-    parse(document: Document, host: string, path: string): string | null;
+    parse(document: Document): string | null;
 }

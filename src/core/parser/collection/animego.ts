@@ -7,7 +7,8 @@ export class AnimeGoParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return host === 'animego.org' && /^\/anime\/.+/.test(path);
     }
 

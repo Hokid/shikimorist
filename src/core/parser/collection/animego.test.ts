@@ -22,9 +22,12 @@ describe('animego.org', function() {
     });
 
     test('default', async function() {
-        const content = await getContent(page, 'https://animego.org/anime/gospozha-kaguya-v-lyubvi-kak-na-voyne-2-1527');
-        const dom = new JSDOM(content);
-        const name = getName('animego.org', '/anime/gospozha-kaguya-v-lyubvi-kak-na-voyne-2-1527', dom.window.document);
+        const url = 'https://animego.org/anime/gospozha-kaguya-v-lyubvi-kak-na-voyne-2-1527';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Kaguya-sama wa Kokurasetai?: Tensai-tachi no Renai Zunousen');
     }, 10000);
 })

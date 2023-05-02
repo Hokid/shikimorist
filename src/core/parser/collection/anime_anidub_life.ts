@@ -9,7 +9,8 @@ export class AnimeAnidubLifeParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return host === 'anidub.life' && /^\/anime(_movie|_ova|_ongoing|_tv|_ona)?|full\/.+/.test(path);
     }
 

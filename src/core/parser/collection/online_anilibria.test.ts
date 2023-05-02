@@ -22,9 +22,12 @@ describe('online.anilibria.life', function() {
     });
 
     test('default', async function() {
-        const content = await getContent(page, 'http://anilibria.life/online/vajolet-jevergarden-film-2020-1080-hd/7-1-0-882');
-        const dom = new JSDOM(content);
-        const name = getName('anilibria.life', '/online/vajolet-jevergarden-film-2020-1080-hd/7-1-0-882', dom.window.document);
+        const url = 'http://anilibria.life/online/vajolet-jevergarden-film-2020-1080-hd/7-1-0-882';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Violet Evergarden Movie');
     });
 })

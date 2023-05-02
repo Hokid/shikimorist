@@ -7,7 +7,8 @@ export class OnlineAnilibriaParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return host === 'anilibria.life' && /^\/online\/.+/.test(path);
     }
 

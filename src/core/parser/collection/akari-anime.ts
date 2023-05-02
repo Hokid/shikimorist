@@ -7,7 +7,8 @@ export class AkariAnimeParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return host === 'akari-anime.com' && /^\/movie\/.+/.test(path);
     }
 

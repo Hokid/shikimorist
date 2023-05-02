@@ -7,7 +7,8 @@ export class OnlineAnimediaParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return host === 'online.animedia.tv' && /^\/anime\/.+/.test(path);
     }
 

@@ -7,7 +7,8 @@ export class AnimebestParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         // *.animebesst.org
         return /[a-zA-Z0-9]+\.animebesst\.org$/.test(host) && /^\/anime(-ab)?\/.+/.test(path);
     }

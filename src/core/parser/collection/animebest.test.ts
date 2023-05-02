@@ -22,9 +22,12 @@ describe('*.animebesst.org', function() {
     });
 
     test('default', async function() {
-        const content = await getContent(page, 'https://anime1.animebesst.org/anime-ab/4514-shin-sakura-taisen-the-animation-ab1.html');
-        const dom = new JSDOM(content);
-        const name = getName('anime1.animebesst.org', '/anime-ab/4514-shin-sakura-taisen-the-animation-ab1.html', dom.window.document);
+        const url = 'https://anime1.animebesst.org/anime-ab/4514-shin-sakura-taisen-the-animation-ab1.html';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Shin Sakura Taisen the Animation');
     }, 10000);
 })

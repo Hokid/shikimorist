@@ -22,16 +22,22 @@ describe('animevost.org', function() {
     });
 
     test('animevost.org (VPN)', async function() {
-        const content = await getContent(page, 'https://animevost.org/tip/tv/2449-shi-huang-zhi-shen.html');
-        const dom = new JSDOM(content);
-        const name = getName('animevost.org', '/tip/tv/2449-shi-huang-zhi-shen.html', dom.window.document);
+        const url = 'https://animevost.org/tip/tv/2449-shi-huang-zhi-shen.html';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Shi Huang Zhi Shen');
     });
 
     test('v2.vost.pw (mirror)', async function() {
-        const content = await getContent(page, 'https://v2.vost.pw/tip/tv/2449-shi-huang-zhi-shen.html');
-        const dom = new JSDOM(content);
-        const name = getName('v2.vost.pw', '/tip/tv/2449-shi-huang-zhi-shen.html', dom.window.document);
+        const url = 'https://v2.vost.pw/tip/tv/2449-shi-huang-zhi-shen.html';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Shi Huang Zhi Shen');
     });
 })

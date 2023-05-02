@@ -8,7 +8,8 @@ export class AnilibriaParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return host.endsWith('anilibria.tv') && /^\/release\/.+/.test(path);
     }
 

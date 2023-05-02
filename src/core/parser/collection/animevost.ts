@@ -11,7 +11,8 @@ export class AnimevostParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return (host === 'v2.vost.pw' || host === 'animevost.org') && /^\/tip\/tv\/.+/.test(path);
     }
 

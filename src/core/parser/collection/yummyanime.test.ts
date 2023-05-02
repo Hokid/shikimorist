@@ -22,16 +22,22 @@ describe('yummyanime', function() {
     });
 
     test('.tv', async function() {
-        const content = await getContent(page, 'https://yummyanime.tv/105-klinok-rassekajuschij-demonov-f3.html');
-        const dom = new JSDOM(content);
-        const name = getName('yummyanime.tv', '/105-klinok-rassekajuschij-demonov-f3.html', dom.window.document);
+        const url = 'https://yummyanime.tv/105-klinok-rassekajuschij-demonov-f3.html';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Kimetsu no Yaiba');
     }, 10000);
 
     test('.org', async function() {
-        const content = await getContent(page, 'https://yummyanime.org/208-klinok-rassekajuschij-demonov-kvartal-krasnyh-fonarej.html');
-        const dom = new JSDOM(content);
-        const name = getName('yummyanime.org', '/208-klinok-rassekajuschij-demonov-kvartal-krasnyh-fonarej.html', dom.window.document);
+        const url = 'https://yummyanime.org/208-klinok-rassekajuschij-demonov-kvartal-krasnyh-fonarej.html';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Kimetsu no Yaiba: Yuukaku-hen');
     }, 10000);
 })

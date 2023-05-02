@@ -23,9 +23,12 @@ describe('akari-anime.com', function() {
     });
 
     test('default', async function() {
-        const content = await getContent(page, 'https://akari-anime.com/movie/vosemdesyat-shest-86/');
-        const dom = new JSDOM(content);
-        const name = getName('akari-anime.com', '/movie/vosemdesyat-shest-86/', dom.window.document);
+        const url = 'https://akari-anime.com/movie/vosemdesyat-shest-86/';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('86');
     }, 60000);
 })

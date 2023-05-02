@@ -58,11 +58,7 @@ export class PageServer {
 
         await ensurePageLoaded;
 
-        const name = getName(
-            window.location.host,
-            window.location.pathname,
-            window.document
-        );
+        const name = getName(window.document);
 
         if (name) {
             response({

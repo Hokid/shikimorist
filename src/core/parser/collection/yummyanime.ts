@@ -10,11 +10,13 @@ export class YummyanimeParser implements IParser {
         }
     ];
 
-    checkUrl(host: string, path: string): boolean {
+    checkUrl(location: Location): boolean {
+        const {host, pathname: path} = location;
         return /^yummyanime\.(tv|org)/.test(host) && /^\/[0-9]+-.+/.test(path);
     }
 
-    parse(document: Document, host: string): string | null {
+    parse(document: Document): string | null {
+        const host = document.location.host;
         let name: string | null = null;
 
         if (host.endsWith('.tv')) {

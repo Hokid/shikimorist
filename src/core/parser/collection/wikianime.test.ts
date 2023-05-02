@@ -22,16 +22,22 @@ describe('wikianime.tv', function() {
     });
 
     test('default', async function() {
-        const content = await getContent(page, 'https://wikianime.tv/anime/Sen_to_Chihiro_no_Kamikakushi');
-        const dom = new JSDOM(content);
-        const name = getName('wikianime.tv', '/anime/Sen_to_Chihiro_no_Kamikakushi', dom.window.document);
+        const url = 'https://wikianime.tv/anime/Sen_to_Chihiro_no_Kamikakushi';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Sen to Chihiro no Kamikakushi');
     });
 
     test('player', async function() {
-        const content = await getContent(page, 'https://wikianime.tv/anime/Sword_Art_Online/1');
-        const dom = new JSDOM(content);
-        const name = getName('wikianime.tv', '/anime/Sword_Art_Online/1', dom.window.document);
+        const url = 'https://wikianime.tv/anime/Sword_Art_Online/1';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Sword Art Online');
     });
 })

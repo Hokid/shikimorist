@@ -20,9 +20,12 @@ describe('online.animedia.tv', function() {
     });
 
     test('default', async function() {
-        const content = await getContent(page, 'https://online.animedia.tv/anime/lovushka-lzhi');
-        const dom = new JSDOM(content);
-        const name = getName('online.animedia.tv', '/anime/lovushka-lzhi', dom.window.document);
+        const url = 'https://online.animedia.tv/anime/lovushka-lzhi';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Netsuzou TRap');
     });
 })

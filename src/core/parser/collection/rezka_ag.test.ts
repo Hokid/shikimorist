@@ -22,9 +22,12 @@ describe('rezka.ag', function() {
     });
 
     test('default', async function() {
-        const content = await getContent(page, 'https://rezka.ag/animation/adventures/31564-sudba-2019.html');
-        const dom = new JSDOM(content);
-        const name = getName('rezka.ag', '/animation/adventures/31564-sudba-2019.html', dom.window.document);
+        const url = 'https://rezka.ag/animation/adventures/31564-sudba-2019.html';
+        const content = await getContent(page, url);
+        const dom = new JSDOM(content, {
+            url
+        });
+        const name = getName(dom.window.document);
         expect(name).toBe('Fate/Grand Order: Zettai Maju Sensen Babylonia');
     });
 })
