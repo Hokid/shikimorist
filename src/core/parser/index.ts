@@ -11,6 +11,7 @@ import {AnimeAnidubLifeParser} from './collection/anime_anidub_life';
 import {AnilibriaParser} from './collection/anilibria';
 import {WikianimeParser} from './collection/wikianime';
 import {RezkaAgParser} from './collection/rezka_ag';
+import { KinopoiskParser } from './collection/kinopoisk';
 
 export const parsers: IParser[] = [
     new AnimeGoParser(),
@@ -24,7 +25,8 @@ export const parsers: IParser[] = [
     new AnimeAnidubLifeParser(),
     new AnilibriaParser(),
     new WikianimeParser(),
-    new RezkaAgParser()
+    new RezkaAgParser(),
+    new KinopoiskParser()
 ];
 
 export function getName(document: Document): null | string {

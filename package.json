@@ -96,6 +96,7 @@
     "test:anilibria": "node scripts/test.js src/core/parser/collection/anilibria.test.ts",
     "test:wikianime": "node scripts/test.js wikianime",
     "test:rezka_ag": "node scripts/test.js rezka_ag",
+    "test:kinopoisk": "node scripts/test.js kinopoisk",
     "zip": "rm -f build.zip && cd build/ && zip -r ../build.zip * && cd -",
     "pub": "npm run build && npm run zip"
   },
