@@ -194,6 +194,7 @@ export class AnimeState extends Lockable {
                 this.rate = undefined;
             });
         } catch (error) {
+            console.error('remove anime from rate list error: %O', error);
             stopLoader();
             catchError(error, () => this.removeAnimeFromRateList());
         }

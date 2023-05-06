@@ -22,7 +22,7 @@ export class ApiClientFactory implements IApiClientFactory {
 
         client.interceptors.response.use(
             (response: ApiResponse) => {
-                if (response.data.error) {
+                if (response.data && response.data.error) {
                     throw new Error(response.data.error);
                 }
 
@@ -44,6 +44,9 @@ export class ApiClientFactory implements IApiClientFactory {
             undefined,
             error => {
                 if (error) {
+                    if (process.env.NODE_ENV === 'development') {
+                        console.debug('auth interceptor(response) error: %O', error);
+                    }
                     if (error.response.status === 401) {
                         provider.onFail();
                     }

@@ -81,7 +81,7 @@ export class UsersRateApi {
     }
 
     async delete(id: number): Promise<void> {
-        const result = await this.api.delete('/api/v2/user_rates/' + id);
+        await this.api.delete('/api/v2/user_rates/' + id);
     }
 }
 

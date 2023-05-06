@@ -12,4 +12,4 @@ export interface ApiResponse$Data<T> {
     error?: string;
 }
 
-export type ApiResponse<T = any> = AxiosResponse<ApiResponse$Data<T>>;
+export type ApiResponse<T = any> = AxiosResponse<ApiResponse$Data<T> | undefined>;
