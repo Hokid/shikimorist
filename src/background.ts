@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import './sentry';
 import {Container} from 'inversify';
 import {injectConfig} from './config';
 import {Store} from './core/store';
