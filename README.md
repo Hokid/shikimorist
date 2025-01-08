@@ -1,7 +1,7 @@
 
 # Shikimorist
 
-Быстрый доступ к списку аниме на [shikimori](https://shikimori.me). Отмечай серии, ставь оценку, добавляй аниме не выходя со страницы онлайн просмотра.
+Быстрый доступ к списку аниме на [shikimori](https://shikimori.one). Отмечай серии, ставь оценку, добавляй аниме не выходя со страницы онлайн просмотра.
 
 <div align="center">
     <img src="promote/s_in_list.png" alt="Preview" width="882" />

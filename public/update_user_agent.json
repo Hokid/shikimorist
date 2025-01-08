@@ -16,7 +16,7 @@
       "initiatorDomains": [
         "ldpjmfifbppiopmahkfajeghaapgnbda"
       ],
-      "urlFilter": "https://shikimori.me/api/*",
+      "urlFilter": "https://shikimori.one/api/*",
       "resourceTypes": [
         "xmlhttprequest"
       ]
@@ -39,7 +39,7 @@
       "initiatorDomains": [
         "ldpjmfifbppiopmahkfajeghaapgnbda"
       ],
-      "urlFilter": "https://shikimori.me/oauth/*",
+      "urlFilter": "https://shikimori.one/oauth/*",
       "resourceTypes": [
         "xmlhttprequest"
       ]
