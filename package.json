@@ -1,6 +1,6 @@
 {
   "name": "shikimorist",
-  "description": "Обновляй свой список аниме(оценки, количество просмотренных серий) на shikimori.me не выходя с любимого сайта онлайн просмотра.",
+  "description": "Обновляй свой список аниме(оценки, количество просмотренных серий) на shikimori.one не выходя с любимого сайта онлайн просмотра.",
   "version": "1.9.0",
   "private": true,
   "dependencies": {
@@ -28,6 +28,7 @@
     "babel-preset-react-app": "9.0.2",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "cross-env": "^7.0.3",
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "5.1.0",
@@ -83,8 +84,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "NODE_ENV=production BABEL_ENV=production node scripts/build.js",
-    "build-dev": "NODE_ENV=development BABEL_ENV=development node scripts/build.js",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider BABEL_ENV=production node scripts/build.js",
+    "build-dev": "cross-env  NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider BABEL_ENV=development node scripts/build.js",
     "test": "node scripts/test.js",
     "test:anidub_life": "node scripts/test.js anime_anidub_life",
     "test:akari-anime": "node scripts/test.js akari-anime",

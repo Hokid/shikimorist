@@ -20,8 +20,8 @@
     "scripting"
   ],
   "host_permissions": [
-    "https://shikimori.me/api/*",
-    "https://shikimori.me/oauth/*"
+    "https://shikimori.one/api/*",
+    "https://shikimori.one/oauth/*"
   ],
   "declarative_net_request": {
     "rule_resources": [{
