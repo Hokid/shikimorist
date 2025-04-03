@@ -84,8 +84,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider BABEL_ENV=production node scripts/build.js",
-    "build-dev": "cross-env  NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider BABEL_ENV=development node scripts/build.js",
+    "build": "cross-env NODE_ENV=production BABEL_ENV=production node scripts/build.js",
+    "build-dev": "cross-env  NODE_ENV=development BABEL_ENV=development node scripts/build.js",
     "test": "node scripts/test.js",
     "test:anidub_life": "node scripts/test.js anime_anidub_life",
     "test:akari-anime": "node scripts/test.js akari-anime",
